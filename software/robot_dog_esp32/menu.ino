@@ -1,19 +1,25 @@
-#define MENU_ITEMS_NUM  10
-#define MENU_GROUPS_NUM 4 //ROOT as 0, so groups+1
+#define MENU_ITEMS_NUM  15
+#define MENU_GROUPS_NUM 5 //ROOT as 0, so groups+1
 
 const menuItem MENU_ITEMS[MENU_ITEMS_NUM] = {
-  { "Hardware", "2",       menuSubMenu,        1, 0 },
-  { "WiFi/BT",  "__WiFi",  menuDummyFunction,  1, 0 },
-  { "Tests",    "__Test",  menuDummyFunction,  1, 0 },
-  { "About",    "About",    displayAbout,       1, 0 },
+  { "Hardware", 2, menuSubMenu,        1, 0 },
+  { "WiFi/BT",  0, menuDummyFunction,  1, 0 },
+  { "Tests",    0, menuDummyFunction,  1, 0 },
+  { "About",    0, displayAbout,       1, 0 },
 
-  { "IMU/MAG",  "3",       menuSubMenu,        2, 1 },
-  { "Leg",      "__Leg",   menuDummyFunction,  2, 1 },
-  { "I2C scan", "i2cscn",  displayI2CScan,     2, 1 },
+  { "IMU/MAG",  3, menuSubMenu,        2, 1 },
+  { "Servo",    4, menuSubMenu,        2, 1 },
+  { "I2C scan", 0, displayI2CScan,     2, 1 },
 
-  { "Status",        "DIMU",   displayIMU,         3, 2 },
-  { "Calibrate IMU", "CIMU",   calibrateIMU,       3, 2 },
-  { "Calibrate MAG", "__CMAG", menuDummyFunction,  3, 2 }
+  { "Status",        0, displayIMU,         3, 2 },
+  { "Calibrate IMU", 0, calibrateIMU,       3, 2 },
+  { "Calibrate MAG", 0, menuDummyFunction,  3, 2 },
+
+  { "Set to min", 0, setServoToMin,   4, 2},
+  { "Set to middle", 0, setServoToMiddle,   4, 2},
+  { "Set to max", 0, setServoToMax,   4, 2},
+  { "Run test(!!!)", 0, servoTest,   4, 2},
+  { "Status",        0, menuDummyFunction,  4, 2}
 };
 
 menuGroup MENU_GROUPS_LENGTH[MENU_GROUPS_NUM];
@@ -116,7 +122,7 @@ void setMenuByMenuItem(menuItem m)
 {
   enableMenu();
   
-  MENU_CURRENT = atoi(m.funcArg);
+  MENU_CURRENT = m.funcArg;
   MENU_PREVIOUS = m.menuId;
   MENU_CURRENT_ITEM_INDEX = 0;
 }

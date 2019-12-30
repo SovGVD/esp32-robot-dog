@@ -4,8 +4,8 @@
 typedef void (*menuItemFunction)();
 
 const typedef struct menuItem_t {
- char title[16];
- char funcArg[16];
+ char title[14];
+ int funcArg;
  menuItemFunction func;
  int menuId;
  int menuParentId;

@@ -23,5 +23,8 @@ void displayPing()
 {
   DISPLAY_PING = !DISPLAY_PING;
   display.drawPixel(127, 63, DISPLAY_PING ? SSD1306_WHITE : SSD1306_BLACK);
+
+  display.setCursor(64, 55);
+  display.print(loopTime);
   display.display();
 }
