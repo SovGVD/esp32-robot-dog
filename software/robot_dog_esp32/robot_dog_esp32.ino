@@ -1,6 +1,6 @@
 #include <Wire.h>
 #include "menu.h";
-#include "leg.h";
+#include "libs/IK/leg.h";
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include <Adafruit_PWMServoDriver.h>
