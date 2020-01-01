@@ -1,8 +1,8 @@
+#include <math.h>
 #include "def.h"
 #include "config.h"
 
 #include <Wire.h>
-#include <math.h>
 #include "menu.h"
 #include "libs/IK/geometry.h"
 #include "libs/IK/leg.h"
@@ -34,45 +34,45 @@ figure body = {
 leg legs[LEG_NUM] = {
   {
     {0, 0, 0},
-    {10,20,20},
+    {LEG_SIZE_L1, LEG_SIZE_L2, LEG_SIZE_L3},
     {0,1,2},  // pins
+    {LEG_ANGLE_ALPHA_MIN, LEG_ANGLE_BETA_MIN, LEG_ANGLE_GAMMA_MIN},
+    {LEG_ANGLE_ALPHA_MAX, LEG_ANGLE_BETA_MAX, LEG_ANGLE_GAMMA_MAX},
     {0,0,0},
-    {PI,PI,PI},
-    {0,0,0},
-    {0,0,0},
+    {LEG_ANGLE_ALPHA, LEG_ANGLE_BETA, LEG_ANGLE_GAMMA},
     {0,0,0},
     {true}
   },
   {
     {0, 0, 0},
-    {10,20,20},
+    {LEG_SIZE_L1, LEG_SIZE_L2, LEG_SIZE_L3},
     {4,5,6},
+    {LEG_ANGLE_ALPHA_MIN, LEG_ANGLE_BETA_MIN, LEG_ANGLE_GAMMA_MIN},
+    {LEG_ANGLE_ALPHA_MAX, LEG_ANGLE_BETA_MAX, LEG_ANGLE_GAMMA_MAX},
     {0,0,0},
-    {PI,PI,PI},
-    {0,0,0},
-    {0,0,0},
+    {LEG_ANGLE_ALPHA, LEG_ANGLE_BETA, LEG_ANGLE_GAMMA},
     {0,0,0},
     {true}
   },
   {
     {0, 0, 0},
-    {10,20,20},
+    {LEG_SIZE_L1, LEG_SIZE_L2, LEG_SIZE_L3},
     {8,9,10},
+    {LEG_ANGLE_ALPHA_MIN, LEG_ANGLE_BETA_MIN, LEG_ANGLE_GAMMA_MIN},
+    {LEG_ANGLE_ALPHA_MAX, LEG_ANGLE_BETA_MAX, LEG_ANGLE_GAMMA_MAX},
     {0,0,0},
-    {PI,PI,PI},
-    {0,0,0},
-    {0,0,0},
+    {LEG_ANGLE_ALPHA, LEG_ANGLE_BETA, LEG_ANGLE_GAMMA},
     {0,0,0},
     {true}
   },
   {
     {0, 0, 0},
-    {10,20,20},
+    {LEG_SIZE_L1, LEG_SIZE_L2, LEG_SIZE_L3},
     {12,13,14},
+    {LEG_ANGLE_ALPHA_MIN, LEG_ANGLE_BETA_MIN, LEG_ANGLE_GAMMA_MIN},
+    {LEG_ANGLE_ALPHA_MAX, LEG_ANGLE_BETA_MAX, LEG_ANGLE_GAMMA_MAX},
     {0,0,0},
-    {PI,PI,PI},
-    {0,0,0},
-    {0,0,0},
+    {LEG_ANGLE_ALPHA, LEG_ANGLE_BETA, LEG_ANGLE_GAMMA},
     {0,0,0},
     {true}
   }

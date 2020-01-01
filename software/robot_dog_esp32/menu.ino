@@ -1,5 +1,5 @@
-#define MENU_ITEMS_NUM  23
-#define MENU_GROUPS_NUM 8 //ROOT as 0, so groups+1
+#define MENU_ITEMS_NUM  29
+#define MENU_GROUPS_NUM 9 //ROOT as 0, so groups+1
 
 const menuItem MENU_ITEMS[MENU_ITEMS_NUM] = {
   { "Hardware", 2, menuSubMenu,        1, 0 },
@@ -23,14 +23,21 @@ const menuItem MENU_ITEMS[MENU_ITEMS_NUM] = {
   { "Body", 6, menuSubMenu, 5, 2 },
   { "Legs", 7, menuSubMenu, 5, 2 },
 
-  { "Move X (L/R)",  0, displayHALMoveBodyX, 6, 5 },
+  { "Move X (R/L)",  0, displayHALMoveBodyX, 6, 5 },
   { "Move Y (F/B)",  0, displayHALMoveBodyY, 6, 5 },
   { "Move Z (U/D)",  0, displayHALMoveBodyZ, 6, 5 },
 
-  { "LEFT  FRONT",  0, menuDummyFunction, 7, 5 },
+  { "LEFT  FRONT",  8, menuSubMenu,       7, 5 },
   { "RIGHT FRONT",  0, menuDummyFunction, 7, 5 },
   { "LEFT  BACK",   0, menuDummyFunction, 7, 5 },
-  { "RIGHT BACK",   0, menuDummyFunction, 7, 5 }
+  { "RIGHT BACK",   0, menuDummyFunction, 7, 5 },
+
+  { "Trim PITCH",   0, menuDummyFunction, 8, 7 },
+  { "Trim ROLL",    0, menuDummyFunction, 8, 7 },
+  { "Trim YAW",     0, menuDummyFunction, 8, 7 },
+  { "Move X",       0, menuDummyFunction, 8, 7 },
+  { "Move Y",       0, menuDummyFunction, 8, 7 },
+  { "Move Z",       0, menuDummyFunction, 8, 7 }
 };
 
 menuGroup MENU_GROUPS_LENGTH[MENU_GROUPS_NUM];

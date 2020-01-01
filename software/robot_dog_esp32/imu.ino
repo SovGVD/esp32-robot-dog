@@ -41,11 +41,14 @@ void updateIMU()
 void displayIMU()
 {
   displayReset();
-  display.print("Roll:  ");
+  display.print("Roll  |X| ");
   display.println(IMU_DATA[ROLL], DISPLAY_DIGITS);
-  display.print("Pitch: ");
+  display.print("Pitch |Y| ");
   display.println(IMU_DATA[PITCH], DISPLAY_DIGITS);
-  display.print("Yaw:   ");
+  display.print("Yaw   |Z| ");
   display.println(IMU_DATA[YAW], DISPLAY_DIGITS);
+  display.println("   X ^        +---+");
+  display.println("     |        |IMU|");
+  display.println(" Y <-Z        0---+");
 
 }
