@@ -10,9 +10,10 @@
 #include "leg.h"
 #include "IK.h"
 
-IK::IK(leg &legObj)
+IK::IK(leg &legObj, figure &bodyObj)
 {
-	_leg = &legObj;
+	_leg  = &legObj;
+	_body = &bodyObj;
 }
 
 legangle IK::solve()
@@ -20,9 +21,9 @@ legangle IK::solve()
 	legangle angle;
 	
 	// TODO: what can I do with limits?
-	double lx = _leg->body.x - _leg->foot.y;
-	double ly = _leg->body.y - _leg->foot.y;
-	double lz = _leg->body.z - _leg->foot.z;
+	double lx = _leg->body.x + _body->position.x - _leg->foot.y;
+	double ly = _leg->body.y + _body->position.y - _leg->foot.y;
+	double lz = _leg->body.z + _body->position.z - _leg->foot.z;
 	
 	double a = lx*lx + lz*lz;	// square of hypotenuse between leg.body and leg.foot in XZ-plane
 	double d = a - _leg->size.l1*_leg->size.l1;

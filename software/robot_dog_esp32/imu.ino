@@ -8,15 +8,14 @@ float IMU_DATA[3] = {0, 0, 0};
 
 void initIMU()
 {
-  display.println("Init IMU...");
+  display.println("Init IMU");
   display.display();
   mpu.setup();
 }
 
 void calibrateIMU()
 {
-  display.clearDisplay();
-  display.setCursor(0,0);
+  displayReset();
   display.println("Calibrating ACC and GYRO in 5 seconds. Put device on flat leveled surface.");
   display.display();
   delay(5000);
@@ -41,13 +40,12 @@ void updateIMU()
 
 void displayIMU()
 {
-  display.clearDisplay();
-  display.setCursor(0,0);
+  displayReset();
   display.print("Roll:  ");
-  display.println(IMU_DATA[ROLL],6);
+  display.println(IMU_DATA[ROLL], DISPLAY_DIGITS);
   display.print("Pitch: ");
-  display.println(IMU_DATA[PITCH],6);
+  display.println(IMU_DATA[PITCH], DISPLAY_DIGITS);
   display.print("Yaw:   ");
-  display.println(IMU_DATA[YAW],6);
+  display.println(IMU_DATA[YAW], DISPLAY_DIGITS);
 
 }

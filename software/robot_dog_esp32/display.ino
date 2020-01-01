@@ -15,8 +15,23 @@ void initDisplay()
   display.setCursor(0, 0);     // Start at top-left corner
   display.cp437(true);         // Use full 256 char 'Code Page 437' font
 
-  display.println("Init display...");
+  display.println("Init display");
   display.display();
+}
+
+void displayReset() {
+  display.clearDisplay();
+  display.setCursor(0,0);  
+}
+
+void displayHighlightBegin()
+{
+  display.setTextColor(SSD1306_BLACK, SSD1306_WHITE);
+}
+
+void displayHighlightEnd()
+{
+  display.setTextColor(SSD1306_WHITE);
 }
 
 void displayPing()

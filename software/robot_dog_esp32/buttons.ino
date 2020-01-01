@@ -1,21 +1,4 @@
-#define BUTTON_ADC_PIN 32
-
-#define BUTTON_DEADBAND 200
-
-#define BUTTON_BACK 0
-#define BUTTON_OK   1
-#define BUTTON_UP   2
-#define BUTTON_DOWN 3
-#define BUTTON_NONE 99999;
-
-/*
- *  0(back)  2(up)
- *  1(ok)    3(down)
- */
-
 // TODO only one press
-unsigned int BUTTON_VALUES[4] = {  1900,  3000,  2300,  1500 };
-bool BUTTON_STATE[4]          = { false, false, false, false };
 unsigned int BUTTON_ADC_VALUE = 0;
 unsigned int BUTTON_LAST_PRESSED = BUTTON_NONE;
 

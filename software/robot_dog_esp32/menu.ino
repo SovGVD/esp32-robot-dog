@@ -1,5 +1,5 @@
-#define MENU_ITEMS_NUM  13
-#define MENU_GROUPS_NUM 5 //ROOT as 0, so groups+1
+#define MENU_ITEMS_NUM  23
+#define MENU_GROUPS_NUM 8 //ROOT as 0, so groups+1
 
 const menuItem MENU_ITEMS[MENU_ITEMS_NUM] = {
   { "Hardware", 2, menuSubMenu,        1, 0 },
@@ -8,6 +8,7 @@ const menuItem MENU_ITEMS[MENU_ITEMS_NUM] = {
   { "About",    0, displayAbout,       1, 0 },
 
   { "IMU/MAG",  3, menuSubMenu,        2, 1 },
+  { "HAL",      5, menuSubMenu,        2, 1 },
   { "Servo",    4, menuSubMenu,        2, 1 },
   { "I2C scan", 0, displayI2CScan,     2, 1 },
 
@@ -16,8 +17,20 @@ const menuItem MENU_ITEMS[MENU_ITEMS_NUM] = {
   { "Calibrate MAG", 0, menuDummyFunction,  3, 2 },
 
   { "Set to middle", 0, setServoToMiddle,   4, 2},
-  { "Run test(!!!)", 0, servoTest,   4, 2},
-  { "Status",        0, menuDummyFunction,  4, 2}
+  { "Run test(!!!)", 0, servoTest,          4, 2},
+  { "Status",        0, menuDummyFunction,  4, 2},
+
+  { "Body", 6, menuSubMenu, 5, 2 },
+  { "Legs", 7, menuSubMenu, 5, 2 },
+
+  { "Move X (L/R)",  0, displayHALMoveBodyX, 6, 5 },
+  { "Move Y (F/B)",  0, displayHALMoveBodyY, 6, 5 },
+  { "Move Z (U/D)",  0, displayHALMoveBodyZ, 6, 5 },
+
+  { "LEFT  FRONT",  0, menuDummyFunction, 7, 5 },
+  { "RIGHT FRONT",  0, menuDummyFunction, 7, 5 },
+  { "LEFT  BACK",   0, menuDummyFunction, 7, 5 },
+  { "RIGHT BACK",   0, menuDummyFunction, 7, 5 }
 };
 
 menuGroup MENU_GROUPS_LENGTH[MENU_GROUPS_NUM];
@@ -80,8 +93,7 @@ void displayMenu()
   
   if (!isMenuDisplay()) return;
   
-  display.clearDisplay();
-  display.setCursor(0,0);
+  displayReset();
 
   MENU_START_INDEX = MENU_CURRENT_ITEM_INDEX - MENU_LINES/2;
   MENU_END_INDEX   = MENU_CURRENT_ITEM_INDEX + MENU_LINES/2;
@@ -106,9 +118,9 @@ void displayMenu()
 
   for (int i=MENU_START_INDEX;i<=MENU_END_INDEX;i++) {
     if (i == MENU_CURRENT_ITEM_INDEX+MENU_GROUPS_LENGTH[MENU_CURRENT].startIndex) {
-      display.setTextColor(SSD1306_BLACK, SSD1306_WHITE);
+      displayHighlightBegin();
       display.print(">");
-      display.setTextColor(SSD1306_WHITE);
+      displayHighlightEnd();
     } else {
       display.print(" ");
     }

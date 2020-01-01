@@ -8,7 +8,7 @@ bool testAngleWay = true;
 
 void initServo()
 {
-  display.println("Init servo...");
+  display.println("Init servo");
   display.display();
   
   pwm.begin();
@@ -31,8 +31,8 @@ void servoTest() {
     testAngle = 70;
     testAngleWay = !testAngleWay;
   }
-  display.clearDisplay();
-  display.setCursor(0,0);
+  
+  displayReset();
   display.print("Angle: ");
   display.println(testAngle, 4);
 

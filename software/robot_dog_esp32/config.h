@@ -2,7 +2,9 @@
  * Configuration file
  */
 
+// Serial
 #define SERIAL_BAUD 115200 
+
 
 /*
  * I2C devices
@@ -22,8 +24,12 @@
 #define SCREEN_WIDTH           128 // OLED display width, in pixels
 #define SCREEN_HEIGHT          64 // OLED display height, in pixels
 
+
+// Buttons config
+#define BUTTON_ADC_PIN  32
+#define BUTTON_DEADBAND 200
+
+
+// Robot config
+
 #define LEG_NUM 4
-#define LEGLF 0
-#define LEGRF 1
-#define LEGLB 2
-#define LEGRB 3

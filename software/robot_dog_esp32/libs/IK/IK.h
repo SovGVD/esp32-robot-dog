@@ -51,11 +51,12 @@
 class IK
 {
 	public:
-		IK(leg &legObj);
+		IK(leg &legObj, figure &bodyObj);
 		legangle solve();
 		double normalizeAngleRad(double angleRad);
 	private:
 		leg *_leg;
+		figure *_body;
 		double ikAtan2(double x, double y);
 		double ikAcos(double angleRad);
 		double ikAsin(double angleRad);
