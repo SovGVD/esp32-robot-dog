@@ -21,3 +21,9 @@
 #define SCREEN_TYPE            OLED_SD1306_128_64
 #define SCREEN_WIDTH           128 // OLED display width, in pixels
 #define SCREEN_HEIGHT          64 // OLED display height, in pixels
+
+#define LEG_NUM 4
+#define LEGLF 0
+#define LEGRF 1
+#define LEGLB 2
+#define LEGRB 3

@@ -1,4 +1,4 @@
-#define MENU_ITEMS_NUM  15
+#define MENU_ITEMS_NUM  13
 #define MENU_GROUPS_NUM 5 //ROOT as 0, so groups+1
 
 const menuItem MENU_ITEMS[MENU_ITEMS_NUM] = {
@@ -15,9 +15,7 @@ const menuItem MENU_ITEMS[MENU_ITEMS_NUM] = {
   { "Calibrate IMU", 0, calibrateIMU,       3, 2 },
   { "Calibrate MAG", 0, menuDummyFunction,  3, 2 },
 
-  { "Set to min", 0, setServoToMin,   4, 2},
   { "Set to middle", 0, setServoToMiddle,   4, 2},
-  { "Set to max", 0, setServoToMax,   4, 2},
   { "Run test(!!!)", 0, servoTest,   4, 2},
   { "Status",        0, menuDummyFunction,  4, 2}
 };
