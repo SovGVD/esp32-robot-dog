@@ -7,7 +7,12 @@ void initHAL()
 }
 
 void initLegs() {
-
+  /*
+  legs[LEGLF].foot = ikLegLF.solveByAngle();
+  legs[LEGRF].foot = ikLegRF.solveByAngle();
+  legs[LEGLB].foot = ikLegLB.solveByAngle();
+  legs[LEGRB].foot = ikLegRB.solveByAngle();
+  */
 }
 
 void updateLegs() {
@@ -46,7 +51,7 @@ void setLegPWM(leg &_leg)
 {
   
   // TODO limits and angle normalize
-  pwm.setPWM(_leg.pin.alpha,  0, (_leg.angle.alpha + _leg.trim.alpha));
-  pwm.setPWM(_leg.pin.beta,   0, (_leg.angle.beta  + _leg.trim.beta));
-  pwm.setPWM(_leg.pin.gamma,  0, (_leg.angle.gamma + _leg.trim.gamma));
+  pwm.setPWM(_leg.pin.alpha,  0, angleToPulse(_leg.angle.alpha + _leg.trim.alpha));
+  pwm.setPWM(_leg.pin.beta,   0, angleToPulse(_leg.angle.beta  + _leg.trim.beta));
+  pwm.setPWM(_leg.pin.gamma,  0, angleToPulse(_leg.angle.gamma + _leg.trim.gamma));
 }

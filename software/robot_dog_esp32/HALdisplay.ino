@@ -1,4 +1,4 @@
-double displayHALMovement = 0.2;
+double displayHALMovement = 1;  // mm
 double displayHALRotation = M_PI/180;
 
 // TODO too much copy-paste!!!
@@ -78,4 +78,34 @@ void displayHALMoveBody(int axis) {
   display.print("Z: ");
   display.println(body.position.z, DISPLAY_DIGITS);
   displayHighlightEnd();
+
+
+  display.print("LF ");
+  display.print(displayAngle(legs[LEGLF].angle.alpha), 0);
+  display.print(" ");
+  display.print(displayAngle(legs[LEGLF].angle.beta), 0);
+  display.print(" ");
+  display.println(displayAngle(legs[LEGLF].angle.gamma), 0);
+
+  display.print("RF ");
+  display.print(displayAngle(legs[LEGRF].angle.alpha), 0);
+  display.print(" ");
+  display.print(displayAngle(legs[LEGRF].angle.beta), 0);
+  display.print(" ");
+  display.println(displayAngle(legs[LEGRF].angle.gamma), 0);
+
+  display.print("LB ");
+  display.print(displayAngle(legs[LEGLB].angle.alpha), 0);
+  display.print(" ");
+  display.print(displayAngle(legs[LEGLB].angle.beta), 0);
+  display.print(" ");
+  display.println(displayAngle(legs[LEGLB].angle.gamma),0);
+
+  display.print("RB ");
+  display.print(displayAngle(legs[LEGRB].angle.alpha), 0);
+  display.print(" ");
+  display.print(displayAngle(legs[LEGRB].angle.beta), 0);
+  display.print(" ");
+  display.println(displayAngle(legs[LEGRB].angle.gamma), 0);
+
 }

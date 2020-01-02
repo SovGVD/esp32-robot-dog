@@ -24,6 +24,11 @@ void displayReset() {
   display.setCursor(0,0);  
 }
 
+double displayAngle(double angleRad)
+{
+  return angleRad*RADTODEGREE;
+}
+
 void displayHighlightBegin()
 {
   display.setTextColor(SSD1306_BLACK, SSD1306_WHITE);
@@ -39,7 +44,7 @@ void displayPing()
   DISPLAY_PING = !DISPLAY_PING;
   display.drawPixel(127, 63, DISPLAY_PING ? SSD1306_WHITE : SSD1306_BLACK);
 
-  display.setCursor(64, 55);
+  display.setCursor(88, 55);
   display.print(loopTime);
   display.display();
 }

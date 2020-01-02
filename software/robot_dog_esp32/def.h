@@ -37,3 +37,6 @@
 #define OLED_RESET     -1 // Reset pin # (or -1 if sharing Arduino reset pin)
 
 #define SOFTWARE_CORE_VERSION 1
+
+/* Math */
+#define RADTODEGREE 180/PI

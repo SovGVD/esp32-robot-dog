@@ -53,6 +53,7 @@ class IK
 	public:
 		IK(leg &legObj, figure &bodyObj);
 		legangle solve();
+		//point solveByAngle();	// use to init position by initial angles
 		double normalizeAngleRad(double angleRad);
 	private:
 		leg *_leg;

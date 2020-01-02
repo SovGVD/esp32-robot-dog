@@ -21,9 +21,19 @@ legangle IK::solve()
 	legangle angle;
 	
 	// TODO: what can I do with limits?
-	double lx = _leg->body.x + _body->position.x - _leg->foot.y;
+	double lx = _leg->body.x + _body->position.x - _leg->foot.x;
 	double ly = _leg->body.y + _body->position.y - _leg->foot.y;
 	double lz = _leg->body.z + _body->position.z - _leg->foot.z;
+	
+	/*Serial.print("LEG BODY X: ");
+	Serial.println(_leg->body.x, 10);
+	Serial.print("LEG POSITION X: ");
+	Serial.println(_leg->position.x, 10);
+	Serial.print("LEG FOOT X: ");
+	Serial.println(_leg->foot.x, 10);
+	Serial.print("LX");
+	Serial.println(lx, 10);*/
+
 	
 	double a = lx*lx + lz*lz;	// square of hypotenuse between leg.body and leg.foot in XZ-plane
 	double d = a - _leg->size.l1*_leg->size.l1;
@@ -34,6 +44,11 @@ legangle IK::solve()
 	
 	return angle;
 }
+
+/*point solveByAngle()
+{
+	// TODO
+}*/
 
 double IK::normalizeAngleRad(double angleRad)
 {
