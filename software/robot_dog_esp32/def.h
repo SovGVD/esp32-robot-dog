@@ -40,3 +40,7 @@
 
 /* Math */
 #define RADTODEGREE 180/PI
+
+
+/* Debug (SLOW!!!)*/
+//#define DEBUG_HAL_LEG

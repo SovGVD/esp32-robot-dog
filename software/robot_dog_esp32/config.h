@@ -27,7 +27,7 @@
 
 // Buttons config
 #define BUTTON_ADC_PIN  32
-#define BUTTON_DEADBAND 200
+#define BUTTON_DEADBAND 100
 
 
 // Robot config
@@ -58,6 +58,6 @@
 #define LEG_BODY_X   82.0
 #define LEG_BODY_Y  155.0
 #define LEG_BODY_Z    0.0
-#define LEG_POINT_X 120.0
+#define LEG_POINT_X 122.6
 #define LEG_POINT_Y 155.0
-#define LEG_POINT_Z 250.0
+#define LEG_POINT_Z 249.304

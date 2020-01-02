@@ -29,6 +29,13 @@ typedef struct {
 	bool onGround;
 } legsensor;
 
+// Leg IK helpers (this is moslty need to set where is leg: left or right side, to inverse some values)
+typedef struct {
+	bool x;
+	bool y;
+	bool z;
+} leginverse;
+
 // Leg structure
 typedef struct {
 	const point     body;
@@ -36,10 +43,11 @@ typedef struct {
 	const leghal    pin;
 	const legangle  min;	// setup limits of angles
 	const legangle  max;	// setup limits of angles
-	point  foot;
-	legangle  angle;
-	legangle  trim;
-	legsensor sensor;
+	point           foot;
+	legangle        angle;
+	legangle        trim;
+	leginverse      inverse;
+	legsensor       sensor;
 } leg;
 
 #endif

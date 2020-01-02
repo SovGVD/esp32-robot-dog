@@ -16,9 +16,24 @@ void initLegs() {
 }
 
 void updateLegs() {
+  #ifdef DEBUG_HAL_LEG
+    Serial.println("LEGLF");
+  #endif
   legs[LEGLF].angle = ikLegLF.solve();
+  
+  #ifdef DEBUG_HAL_LEG
+    Serial.println("LEGRF");
+  #endif
   legs[LEGRF].angle = ikLegRF.solve();
+  
+  #ifdef DEBUG_HAL_LEG
+    Serial.println("LEGLB");
+  #endif
   legs[LEGLB].angle = ikLegLB.solve();
+
+  #ifdef DEBUG_HAL_LEG
+    Serial.println("LEGRB");
+  #endif
   legs[LEGRB].angle = ikLegRB.solve();
 }
 
