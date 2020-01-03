@@ -99,7 +99,7 @@ void displayHALMoveBody(int axis) {
   display.print(" ");
   display.print(displayAngle(legs[LEGLB].angle.beta), 0);
   display.print(" ");
-  display.println(displayAngle(legs[LEGLB].angle.gamma),0);
+  display.println(displayAngle(legs[LEGLB].angle.gamma), 0);
 
   display.print("RB ");
   display.print(displayAngle(legs[LEGRB].angle.alpha), 0);

@@ -58,6 +58,7 @@ iksolver IK::solve()
 
 	
 	double a = lx*lx + lz*lz;                       // square of hypotenuse (points between leg.body and leg.foot in XZ-plane)
+	double sqrta = sqrt(a);
 	double dxz = a - _leg->size.l1*_leg->size.l1;   // square of hypotenuse between BETA angle joint and ground in XZ plane
 	double dyz = ly*ly + dxz;                       // square of hypotenuse between BETA angle joint and ground in YZ plane
 	double l2p2 = _leg->size.l2*_leg->size.l2;      // square of l2
@@ -71,7 +72,7 @@ iksolver IK::solve()
 		Serial.println(dyz, 10);
 	#endif
 	
-	angle.alpha = M_PI - ikAtan2(lz, lx) - ikAcos(_leg->size.l1/sqrt(a));
+	angle.alpha = M_PI - ikAsin(lx/sqrta) - ikAcos(_leg->size.l1/sqrta);
 	#ifdef DEBUG_HAL_LEG
 		Serial.print("ALPHA: ");
 		Serial.println(angle.alpha*(180/M_PI), 10);
