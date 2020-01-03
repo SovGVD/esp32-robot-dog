@@ -16,25 +16,26 @@ void initLegs() {
 }
 
 void updateLegs() {
+  // TODO check `isSolved`
   #ifdef DEBUG_HAL_LEG
     Serial.println("LEGLF");
   #endif
-  legs[LEGLF].angle = ikLegLF.solve();
+  legs[LEGLF].angle = ikLegLF.solve().angle;
   
   #ifdef DEBUG_HAL_LEG
     Serial.println("LEGRF");
   #endif
-  legs[LEGRF].angle = ikLegRF.solve();
+  legs[LEGRF].angle = ikLegRF.solve().angle;
   
   #ifdef DEBUG_HAL_LEG
     Serial.println("LEGLB");
   #endif
-  legs[LEGLB].angle = ikLegLB.solve();
+  legs[LEGLB].angle = ikLegLB.solve().angle;
 
   #ifdef DEBUG_HAL_LEG
     Serial.println("LEGRB");
   #endif
-  legs[LEGRB].angle = ikLegRB.solve();
+  legs[LEGRB].angle = ikLegRB.solve().angle;
 }
 
 double mapf(double val, double in_min, double in_max, double out_min, double out_max) {

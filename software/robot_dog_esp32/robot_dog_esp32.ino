@@ -102,7 +102,7 @@ void setup()
   initMenu();
   initIMU();
   initHAL();
-  delay(2000);
+  //delay(2000);
 }
 
 void loop()

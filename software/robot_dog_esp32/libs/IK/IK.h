@@ -48,11 +48,16 @@
 
 #include "leg.h"
 
+typedef struct {
+	bool isSolved;
+	legangle angle;
+} iksolver;
+
 class IK
 {
 	public:
 		IK(leg &legObj, figure &bodyObj);
-		legangle solve();
+		iksolver solve();
 		//point solveByAngle();	// use to init position by initial angles
 		double normalizeAngleRad(double angleRad);
 	private:

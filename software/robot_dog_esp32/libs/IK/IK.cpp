@@ -16,9 +16,10 @@ IK::IK(leg &legObj, figure &bodyObj)
 	_body = &bodyObj;
 }
 
-legangle IK::solve()
+iksolver IK::solve()
 {
 	legangle angle;
+	iksolver s;
 	
 	// TODO: what can I do with limits?
 	double lx = _leg->foot.x - (_leg->body.x + _body->position.x); if (_leg->inverse.x) { lx = -lx; };
@@ -56,13 +57,18 @@ legangle IK::solve()
 	#endif
 
 	
-	double a = lx*lx + lz*lz;	// square of hypotenuse between leg.body and leg.foot in XZ-plane
-	double d = a - _leg->size.l1*_leg->size.l1;
+	double a = lx*lx + lz*lz;                       // square of hypotenuse (points between leg.body and leg.foot in XZ-plane)
+	double dxz = a - _leg->size.l1*_leg->size.l1;   // square of hypotenuse between BETA angle joint and ground in XZ plane
+	double dyz = ly*ly + dxz;                       // square of hypotenuse between BETA angle joint and ground in YZ plane
+	double l2p2 = _leg->size.l2*_leg->size.l2;      // square of l2
+	double l3p2 = _leg->size.l3*_leg->size.l3;      // square of l3
 	#ifdef DEBUG_HAL_LEG	
 		Serial.print("A: ");
 		Serial.print(a, 10);
-		Serial.print(" D: ");
-		Serial.println(d, 10);
+		Serial.print(" dXZ: ");
+		Serial.print(dxz, 10);
+		Serial.print(" dYZ: ");
+		Serial.println(dyz, 10);
 	#endif
 	
 	angle.alpha = M_PI - ikAtan2(lz, lx) - ikAcos(_leg->size.l1/sqrt(a));
@@ -75,19 +81,22 @@ legangle IK::solve()
 		Serial.println(ikAcos(_leg->size.l1/sqrt(a)),10);
 	#endif
 	
-	angle.beta  = ikAsin(ly/sqrt(d)) + M_PI/2; 
+	angle.beta  = M_PI/2 - ikAcos( (l3p2 - l2p2 - dyz) / (-2 * sqrt(dyz) * _leg->size.l2)) - ikAsin(ly/sqrt(dxz)); 
 	#ifdef DEBUG_HAL_LEG
 		Serial.print("BETA: ");
 		Serial.println(angle.beta*(180/M_PI), 10);
 	#endif
 
-	angle.gamma = ikAcos( (d - _leg->size.l2*_leg->size.l2 - _leg->size.l3*_leg->size.l3) / (-2 * _leg->size.l2 * _leg->size.l3) );
+	angle.gamma = ikAcos( (dyz - l2p2 - l3p2) / (-2 * _leg->size.l2 * _leg->size.l3) );
 	#ifdef DEBUG_HAL_LEG
 		Serial.print("GAMMA: ");
 		Serial.println(angle.gamma*(180/M_PI), 10);
 	#endif
 	
-	return angle;
+	s.isSolved = true;	// TODO
+	s.angle = angle;
+	
+	return s;
 }
 
 /*point solveByAngle()
