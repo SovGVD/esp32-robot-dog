@@ -15,6 +15,14 @@ void initLegs() {
   */
 }
 
+void updateHAL() {
+  updateLegs();
+}
+
+void doHAL() {
+  servoSet();
+}
+
 void updateLegs() {
   // TODO check `isSolved`
   #ifdef DEBUG_HAL_LEG

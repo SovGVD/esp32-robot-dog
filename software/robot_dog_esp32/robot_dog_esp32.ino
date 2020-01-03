@@ -13,7 +13,6 @@
 #include <Adafruit_PWMServoDriver.h>
 #include "libs/MPU9250/MPU9250.h"
 
-
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 
@@ -95,28 +94,29 @@ IK ikLegRB(legs[LEGRB], body);
 
 void setup()
 {
-  
   Serial.begin(SERIAL_BAUD);
 
   initDisplay();
   initMenu();
   initIMU();
   initHAL();
-  //delay(2000);
+
 }
 
 void loop()
 {
   currentTime = micros();
-  
+
   updateIMU();
-  updateLegs();
+  updateHAL();
+  doHAL();  // TODO remove Adafruit_PWMServoDriver to use something native to be able to move servo part to Task
+
   buttonsUpdate();
   displayMenu();
   displayMenuActivity();
-  servoSet(); // TODO another thread
   buttonsReset();
-  
+
   displayPing();
-  loopTime = micros() - currentTime;  // i want to know full loop time, and yes it will be previous value in displayPing  
+  loopTime = micros() - currentTime;  // i want to know full loop time, and yes it will be previous value in displayPing
+
 }
