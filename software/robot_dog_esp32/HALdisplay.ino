@@ -80,20 +80,25 @@ void displayHALMoveBody(int axis) {
   displayHighlightEnd();
 
 
+  if (legs[LEGLF].sensor.onGround) displayHighlightBegin();
   display.print("LF ");
   display.print(displayAngle(legs[LEGLF].angle.alpha), 0);
   display.print(" ");
   display.print(displayAngle(legs[LEGLF].angle.beta), 0);
   display.print(" ");
   display.println(displayAngle(legs[LEGLF].angle.gamma), 0);
+  displayHighlightEnd();
 
+  if (legs[LEGRF].sensor.onGround) displayHighlightBegin();
   display.print("RF ");
   display.print(displayAngle(legs[LEGRF].angle.alpha), 0);
   display.print(" ");
   display.print(displayAngle(legs[LEGRF].angle.beta), 0);
   display.print(" ");
   display.println(displayAngle(legs[LEGRF].angle.gamma), 0);
+  displayHighlightEnd();
 
+  if (legs[LEGLB].sensor.onGround) displayHighlightBegin();
   display.print("LB ");
   display.print(displayAngle(legs[LEGLB].angle.alpha), 0);
   display.print(" ");
@@ -101,11 +106,13 @@ void displayHALMoveBody(int axis) {
   display.print(" ");
   display.println(displayAngle(legs[LEGLB].angle.gamma), 0);
 
+  if (legs[LEGRB].sensor.onGround) displayHighlightBegin();
   display.print("RB ");
   display.print(displayAngle(legs[LEGRB].angle.alpha), 0);
   display.print(" ");
   display.print(displayAngle(legs[LEGRB].angle.beta), 0);
   display.print(" ");
   display.println(displayAngle(legs[LEGRB].angle.gamma), 0);
+  displayHighlightEnd();
 
 }

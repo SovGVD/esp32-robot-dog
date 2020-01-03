@@ -23,7 +23,14 @@ void doHAL() {
   servoSet();
 }
 
+void readLegsSensors() {
+  for (int i = 0; i < LEG_NUM; i++) {
+    legs[i].sensor.onGround = analogRead(legs[i].sensor.pin) > legs[i].sensor.threshold;
+  }
+}
+
 void updateLegs() {
+  readLegsSensors();
   // TODO check `isSolved`
   #ifdef DEBUG_HAL_LEG
     Serial.println("LEGLF");

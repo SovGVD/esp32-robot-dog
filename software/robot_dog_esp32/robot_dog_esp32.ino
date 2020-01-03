@@ -35,14 +35,14 @@ leg legs[LEG_NUM] = {
   {
     {-LEG_BODY_X, LEG_POINT_Y, LEG_BODY_Z},
     {LEG_SIZE_L1, LEG_SIZE_L2, LEG_SIZE_L3},
-    {0,1,2},  // pins
+    {0,1,2},  // 3 servo pins and leg sensor
     {LEG_ANGLE_ALPHA_MIN, LEG_ANGLE_BETA_MIN, LEG_ANGLE_GAMMA_MIN},
     {LEG_ANGLE_ALPHA_MAX, LEG_ANGLE_BETA_MAX, LEG_ANGLE_GAMMA_MAX},
     {-LEG_POINT_X, LEG_POINT_Y, -LEG_POINT_Z},
     {LEG_ANGLE_ALPHA, LEG_ANGLE_BETA, LEG_ANGLE_GAMMA},
     {0,0,0},
     {true, false, false},
-    {true}
+    {true, 34, 2000}
   },
   // RIGHT FRONT
   {
@@ -55,7 +55,7 @@ leg legs[LEG_NUM] = {
     {LEG_ANGLE_ALPHA, LEG_ANGLE_BETA, LEG_ANGLE_GAMMA},
     {0,0,0},
     {false, false, false},
-    {true}
+    {true, 35, 2000}
   },
   // LEFT BACK
   {
@@ -68,7 +68,7 @@ leg legs[LEG_NUM] = {
     {LEG_ANGLE_ALPHA, LEG_ANGLE_BETA, LEG_ANGLE_GAMMA},
     {0,0,0},
     {true, false, false},
-    {true}
+    {true, 39, 2000}
   },
   // RIGHT BACK
   {
@@ -81,7 +81,7 @@ leg legs[LEG_NUM] = {
     {LEG_ANGLE_ALPHA, LEG_ANGLE_BETA, LEG_ANGLE_GAMMA},
     {0,0,0},
     {false, false, false},
-    {true}
+    {true, 36, 2000}
   }
 };
 

@@ -24,9 +24,11 @@ typedef struct {
 	int gamma;
 } leghal;
 
-// Leg sensors
+// Leg sensor
 typedef struct {
-	bool onGround;
+	bool onGround;  // State
+	int pin;        // Settings
+	int threshold;
 } legsensor;
 
 // Leg IK helpers (this is moslty need to set where is leg: left or right side, to inverse some values)
