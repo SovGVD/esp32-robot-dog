@@ -84,7 +84,16 @@ void setLegPWM(leg &_leg)
 {
   
   // TODO limits and angle normalize
-  pwm.setPWM(_leg.pin.alpha,  0, angleToPulse(_leg.angle.alpha + _leg.trim.alpha));
-  pwm.setPWM(_leg.pin.beta,   0, angleToPulse(_leg.angle.beta  + _leg.trim.beta));
-  pwm.setPWM(_leg.pin.gamma,  0, angleToPulse(_leg.angle.gamma + _leg.trim.gamma));
+  pwm.setPWM(_leg.hal.pin.alpha,  0,  angleToPulse(getHALAngle(_leg.angle.alpha, _leg.hal.trim.alpha, _leg.hal.ratio.alpha, _leg.inverse.alpha)));
+  pwm.setPWM(_leg.hal.pin.beta,   0,  angleToPulse(getHALAngle(_leg.angle.beta,  _leg.hal.trim.beta,  _leg.hal.ratio.beta,  _leg.inverse.beta)));
+  pwm.setPWM(_leg.hal.pin.gamma,  0,  angleToPulse(getHALAngle(_leg.angle.gamma, _leg.hal.trim.gamma, _leg.hal.ratio.gamma, _leg.inverse.gamma)));
+}
+
+double getHALAngle(double angle, double trimAngle, double gearRatio, bool inverse) {
+  angle = angle + trimAngle;
+  if (inverse) angle = M_PI - angle;
+  if (gearRatio != 1) {
+    angle = (angle - M_PI/2) * gearRatio + M_PI/2;  // map around middle of servo (90 deg, PI/2)
+  }
+  return angle;
 }

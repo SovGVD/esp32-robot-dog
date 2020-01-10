@@ -10,6 +10,13 @@ typedef struct {
 	double gamma;
 } legangle;
 
+//Leg gears ratio
+typedef struct {
+	double alpha;
+	double beta;
+	double gamma;
+} leggear;
+
 // see IK.h
 typedef struct {
 	double l1;
@@ -22,7 +29,7 @@ typedef struct {
 	int alpha;
 	int beta;
 	int gamma;
-} leghal;
+} legpin;
 
 // Leg sensor
 typedef struct {
@@ -36,18 +43,27 @@ typedef struct {
 	bool x;
 	bool y;
 	bool z;
+	bool alpha;
+	bool beta;
+	bool gamma;
 } leginverse;
+
+// Leg HAL values
+typedef struct {
+	legpin   pin;
+	legangle trim;
+	leggear  ratio;
+} leghal;
 
 // Leg structure
 typedef struct {
 	const point     body;
 	const legsize   size;
-	const leghal    pin;
 	const legangle  min;	// setup limits of angles
 	const legangle  max;	// setup limits of angles
+	leghal          hal;
 	point           foot;
 	legangle        angle;
-	legangle        trim;
 	leginverse      inverse;
 	legsensor       sensor;
 } leg;
