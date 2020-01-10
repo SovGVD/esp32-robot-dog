@@ -14,7 +14,7 @@
 #define ROLLAXIS  4
 #define YAWAXIS   5
 
-#define DISPLAY_DIGITS 6  // Number of digits to display after the decimal point
+#define DISPLAY_DIGITS 1  // Number of digits to display after the decimal point
 
 #define BUTTON_BACK 0
 #define BUTTON_OK   1

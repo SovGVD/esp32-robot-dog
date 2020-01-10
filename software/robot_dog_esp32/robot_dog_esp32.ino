@@ -33,7 +33,8 @@ figure body = {
 leg legs[LEG_NUM] = {
   // LEFT FRONT
   {
-    {-LEG_BODY_X, LEG_POINT_Y, LEG_BODY_Z},
+    {LEGLF, "LF"},
+    {-LEG_BODY_X, LEG_BODY_Y, LEG_BODY_Z},
     {LEG_SIZE_L1, LEG_SIZE_L2, LEG_SIZE_L3},
     {LEG_ANGLE_ALPHA_MIN, LEG_ANGLE_BETA_MIN, LEG_ANGLE_GAMMA_MIN},
     {LEG_ANGLE_ALPHA_MAX, LEG_ANGLE_BETA_MAX, LEG_ANGLE_GAMMA_MAX},
@@ -44,12 +45,13 @@ leg legs[LEG_NUM] = {
     },
     {-LEG_POINT_X, LEG_POINT_Y, -LEG_POINT_Z},
     {LEG_ANGLE_ALPHA, LEG_ANGLE_BETA, LEG_ANGLE_GAMMA},
-    {true, false, false, false, false, true},
+    {true, true, false, false, false, true},
     {true, 34, 2000}
   },
   // RIGHT FRONT
   {
-    {LEG_BODY_X, LEG_POINT_Y, LEG_BODY_Z},
+    {LEGRF, "RF"},
+    {LEG_BODY_X, LEG_BODY_Y, LEG_BODY_Z},
     {LEG_SIZE_L1, LEG_SIZE_L2, LEG_SIZE_L3},
     {LEG_ANGLE_ALPHA_MIN, LEG_ANGLE_BETA_MIN, LEG_ANGLE_GAMMA_MIN},
     {LEG_ANGLE_ALPHA_MAX, LEG_ANGLE_BETA_MAX, LEG_ANGLE_GAMMA_MAX},
@@ -60,12 +62,13 @@ leg legs[LEG_NUM] = {
     },
     {LEG_POINT_X, LEG_POINT_Y, -LEG_POINT_Z},
     {LEG_ANGLE_ALPHA, LEG_ANGLE_BETA, LEG_ANGLE_GAMMA},
-    {false, false, false, false, false, true},
+    {false, true, false, false, false, true},
     {true, 35, 2000}
   },
   // LEFT BACK
   {
-    {-LEG_BODY_X, -LEG_POINT_Y, LEG_BODY_Z},
+    {LEGLB, "LB"},
+    {-LEG_BODY_X, -LEG_BODY_Y, LEG_BODY_Z},
     {LEG_SIZE_L1, LEG_SIZE_L2, LEG_SIZE_L3},
     {LEG_ANGLE_ALPHA_MIN, LEG_ANGLE_BETA_MIN, LEG_ANGLE_GAMMA_MIN},
     {LEG_ANGLE_ALPHA_MAX, LEG_ANGLE_BETA_MAX, LEG_ANGLE_GAMMA_MAX},
@@ -76,12 +79,13 @@ leg legs[LEG_NUM] = {
     },
     {-LEG_POINT_X, -LEG_POINT_Y, -LEG_POINT_Z},
     {LEG_ANGLE_ALPHA, LEG_ANGLE_BETA, LEG_ANGLE_GAMMA},
-    {true, false, false, false, false, true},
+    {true, true, false, false, false, true},
     {true, 39, 2000}
   },
   // RIGHT BACK
   {
-    {LEG_BODY_X, -LEG_POINT_Y, LEG_BODY_Z},
+    {LEGRB, "RB"},
+    {LEG_BODY_X, -LEG_BODY_Y, LEG_BODY_Z},
     {LEG_SIZE_L1, LEG_SIZE_L2, LEG_SIZE_L3},
     {LEG_ANGLE_ALPHA_MIN, LEG_ANGLE_BETA_MIN, LEG_ANGLE_GAMMA_MIN},
     {LEG_ANGLE_ALPHA_MAX, LEG_ANGLE_BETA_MAX, LEG_ANGLE_GAMMA_MAX},
@@ -92,7 +96,7 @@ leg legs[LEG_NUM] = {
     },
     {LEG_POINT_X, -LEG_POINT_Y, -LEG_POINT_Z},
     {LEG_ANGLE_ALPHA, LEG_ANGLE_BETA, LEG_ANGLE_GAMMA},
-    {false, false, false, false, false, true},
+    {false, true, false, false, false, true},
     {true, 36, 2000}
   }
 };

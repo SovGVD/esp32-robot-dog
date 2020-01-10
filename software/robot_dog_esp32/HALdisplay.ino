@@ -3,17 +3,30 @@ double displayHALRotation = M_PI/180;
 
 // TODO too much copy-paste!!!
 
-void displayHALMoveBodyX() {
-  displayHALMoveBody(XAXIS);
+void displayHALMoveBodyXAngle() {
+  displayHALMoveBody(XAXIS, true);
 }
 
-void displayHALMoveBodyY() {
-  displayHALMoveBody(YAXIS);
+void displayHALMoveBodyYAngle() {
+  displayHALMoveBody(YAXIS, true);
 }
 
-void displayHALMoveBodyZ() {
-  displayHALMoveBody(ZAXIS);
+void displayHALMoveBodyZAngle() {
+  displayHALMoveBody(ZAXIS, true);
 }
+
+void displayHALMoveBodyXPosition() {
+  displayHALMoveBody(XAXIS, false);
+}
+
+void displayHALMoveBodyYPosition() {
+  displayHALMoveBody(YAXIS, false);
+}
+
+void displayHALMoveBodyZPosition() {
+  displayHALMoveBody(ZAXIS, false);
+}
+
 
 void displayHALButtonsBody(int axis) {
   // TODO  pitch/roll/yaw
@@ -44,75 +57,76 @@ void displayHALButtonsBody(int axis) {
   }
 }
 
-void displayHALMoveBody(int axis) {
+void displayHALMoveBody(int axis, bool displayAngles) {
   displayHALButtonsBody(axis);
-  display.print("Move by ");
-  switch (axis) {
-    case XAXIS:
-      display.print("X");
-      break;
-    case YAXIS:
-      display.print("Y");
-      break;
-    case ZAXIS:
-      display.print("Z");
-      break;
-    default:
-      menuBack(); // something wrong, goes back to menu
-      break;
-  }
-  display.println(" axis");
-  
+
   if (axis == XAXIS) displayHighlightBegin();
-  display.print("X: ");
-  display.println(body.position.x, DISPLAY_DIGITS);
+  display.print("X:");
+  display.print(body.position.x, DISPLAY_DIGITS);
   displayHighlightEnd();
+  display.print(" ");
   
   if (axis == YAXIS) displayHighlightBegin();
-  display.print("Y: ");
-  display.println(body.position.y, DISPLAY_DIGITS);
+  display.print("Y:");
+  display.print(body.position.y, DISPLAY_DIGITS);
   displayHighlightEnd();
+  display.print(" ");
   
   if (axis == ZAXIS) displayHighlightBegin();
-  display.print("Z: ");
+  display.print("Z:");
   display.println(body.position.z, DISPLAY_DIGITS);
   displayHighlightEnd();
 
 
-  if (legs[LEGLF].sensor.onGround) displayHighlightBegin();
-  display.print("LF ");
-  display.print(displayAngle(legs[LEGLF].angle.alpha), 0);
-  display.print(" ");
-  display.print(displayAngle(legs[LEGLF].angle.beta), 0);
-  display.print(" ");
-  display.println(displayAngle(legs[LEGLF].angle.gamma), 0);
-  displayHighlightEnd();
+  if (displayAngles) {
+    displayHALAngles();
+  } else {
+    displayHALPositions();
+  }
+}
 
-  if (legs[LEGRF].sensor.onGround) displayHighlightBegin();
-  display.print("RF ");
-  display.print(displayAngle(legs[LEGRF].angle.alpha), 0);
+void displayHALPosition(leg &_leg) {
+  if (_leg.sensor.onGround) displayHighlightBegin();
+  display.print(_leg.id.title);
   display.print(" ");
-  display.print(displayAngle(legs[LEGRF].angle.beta), 0);
-  display.print(" ");
-  display.println(displayAngle(legs[LEGRF].angle.gamma), 0);
-  displayHighlightEnd();
+  display.print(_leg.body.x + body.position.x, 0);
+  display.print(",");
+  display.print(_leg.body.y + body.position.y, 0);
+  display.print(",");
+  display.print(_leg.body.z + body.position.z, 0);
 
-  if (legs[LEGLB].sensor.onGround) displayHighlightBegin();
-  display.print("LB ");
-  display.print(displayAngle(legs[LEGLB].angle.alpha), 0);
   display.print(" ");
-  display.print(displayAngle(legs[LEGLB].angle.beta), 0);
+  display.print(_leg.foot.x, 0);
+  display.print(",");
+  display.print(_leg.foot.y, 0);
+  display.print(",");
+  display.print(_leg.foot.z, 0);
   display.print(" ");
-  display.println(displayAngle(legs[LEGLB].angle.gamma), 0);
-
-  if (legs[LEGRB].sensor.onGround) displayHighlightBegin();
-  display.print("RB ");
-  display.print(displayAngle(legs[LEGRB].angle.alpha), 0);
-  display.print(" ");
-  display.print(displayAngle(legs[LEGRB].angle.beta), 0);
-  display.print(" ");
-  display.println(displayAngle(legs[LEGRB].angle.gamma), 0);
   displayHighlightEnd();
+}
+
+void displayHALAngle(leg &_leg) {
+  if (_leg.sensor.onGround) displayHighlightBegin();
+  display.print(_leg.id.title);
+  display.print(" ");
+  display.print(displayAngle(_leg.angle.alpha), 0);
+  display.print(" ");
+  display.print(displayAngle(_leg.angle.beta), 0);
+  display.print(" ");
+  display.println(displayAngle(_leg.angle.gamma), 0);
+  displayHighlightEnd();
+}
+
+void displayHALPositions() {
+  for (int i = 0; i < LEG_NUM; i++) {
+    displayHALPosition(legs[i]);
+  }
+}
+
+void displayHALAngles() {
+  for (int i = 0; i < LEG_NUM; i++) {
+    displayHALAngle(legs[i]);
+  }
 }
 
 void displayDisableHAL() {
@@ -128,4 +142,12 @@ void displayEnableHAL() {
 void displayHALStatus() {
   display.println("HAL status:");
   display.println(disableHAL?"disabled":"enabled"); // This is usuful to set servos to middle (90 deg or PI/2)
+}
+
+
+// tests
+int HALTEST_delta = 10; // 10 mm
+
+void displayHALTest1() {
+  
 }

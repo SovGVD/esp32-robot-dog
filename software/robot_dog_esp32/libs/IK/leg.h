@@ -55,8 +55,14 @@ typedef struct {
 	leggear  ratio;
 } leghal;
 
+typedef struct {
+	int  id;
+	char title[4];
+} legid;
+
 // Leg structure
 typedef struct {
+	const legid     id;
 	const point     body;
 	const legsize   size;
 	const legangle  min;	// setup limits of angles

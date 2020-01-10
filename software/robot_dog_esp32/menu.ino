@@ -1,4 +1,4 @@
-#define MENU_ITEMS_NUM  31
+#define MENU_ITEMS_NUM  35
 #define MENU_GROUPS_NUM 9 //ROOT as 0, so groups+1
 
 const menuItem MENU_ITEMS[MENU_ITEMS_NUM] = {
@@ -25,9 +25,13 @@ const menuItem MENU_ITEMS[MENU_ITEMS_NUM] = {
   { "Enable",  0, displayEnableHAL,  5, 2 },
   { "Disable", 0, displayDisableHAL, 5, 2 },
 
-  { "Move X (R/L)",  0, displayHALMoveBodyX, 6, 5 },
-  { "Move Y (F/B)",  0, displayHALMoveBodyY, 6, 5 },
-  { "Move Z (U/D)",  0, displayHALMoveBodyZ, 6, 5 },
+  { "P.MoveX (R/L)",  0, displayHALMoveBodyXPosition, 6, 5 },
+  { "P.MoveY (F/B)",  0, displayHALMoveBodyYPosition, 6, 5 },
+  { "P.MoveZ (U/D)",  0, displayHALMoveBodyZPosition, 6, 5 },
+  { "A.MoveX (R/L)",  0, displayHALMoveBodyXAngle,    6, 5 },
+  { "A.MoveY (F/B)",  0, displayHALMoveBodyYAngle,    6, 5 },
+  { "A.MoveZ (U/D)",  0, displayHALMoveBodyZAngle,    6, 5 },
+  { "Test",           0, displayHALTest1,             6, 5 },
 
   { "LEFT  FRONT",  8, menuSubMenu,       7, 5 },
   { "RIGHT FRONT",  0, menuDummyFunction, 7, 5 },
