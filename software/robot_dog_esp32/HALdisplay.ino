@@ -109,11 +109,11 @@ void displayHALAngle(leg &_leg) {
   if (_leg.sensor.onGround) displayHighlightBegin();
   display.print(_leg.id.title);
   display.print(" ");
-  display.print(displayAngle(_leg.angle.alpha), 0);
+  display.print(displayAngle(_leg.angle.alpha), 1);
   display.print(" ");
-  display.print(displayAngle(_leg.angle.beta), 0);
+  display.print(displayAngle(_leg.angle.beta), 1);
   display.print(" ");
-  display.println(displayAngle(_leg.angle.gamma), 0);
+  display.println(displayAngle(_leg.angle.gamma), 1);
   displayHighlightEnd();
 }
 
@@ -146,8 +146,72 @@ void displayHALStatus() {
 
 
 // tests
-int HALTEST_delta = 10; // 10 mm
+double HALTEST1_dx    = 0;
+double HALTEST1_dy    = 0;
+double HALTEST1_dz    = 0;
+double HALTEST1_d     = 1;
+int HALTEST1_stage = 0;
+double HALTEST1_delta = 49.9; // +-50 mm (square 100x100)
 
 void displayHALTest1() {
-  
+  switch (HALTEST1_stage) {
+    case 0:
+      HALTEST1_dy = HALTEST1_dy + HALTEST1_d;
+      if (HALTEST1_dy >= HALTEST1_delta) HALTEST1_stage++;
+      break;
+    case 1:
+      HALTEST1_dx = HALTEST1_dx + HALTEST1_d;
+      if (HALTEST1_dx >= HALTEST1_delta) HALTEST1_stage++;
+      break;
+    case 2:
+      HALTEST1_dy = HALTEST1_dy - HALTEST1_d;
+      if (HALTEST1_dy <= -HALTEST1_delta) HALTEST1_stage++;
+      break;
+    case 3:
+      HALTEST1_dx = HALTEST1_dx - HALTEST1_d;
+      if (HALTEST1_dx <= -HALTEST1_delta) HALTEST1_stage=0;
+      break;
+    default:
+      menuBack();
+  }
+
+  display.print("Stage ");
+  display.println(HALTEST1_stage);
+
+  display.print("dx:");
+  display.println(HALTEST1_dx);
+  display.print("dy:");
+  display.println(HALTEST1_dy);
+
+  displayHALTest1_LEGLF(legs[LEGLF]);
+  displayHALTest1_LEGRF(legs[LEGRF]);
+  displayHALTest1_LEGLB(legs[LEGLB]);
+  displayHALTest1_LEGRB(legs[LEGRB]);
+
+  displayHALAngles();
+}
+
+void displayHALTest1_LEGLF(leg &_leg) {
+  _leg.foot.x = -LEG_POINT_X + HALTEST1_dx;
+  _leg.foot.y =  LEG_POINT_Y + HALTEST1_dy;
+  _leg.foot.z = -LEG_POINT_Z + HALTEST1_dz;
+}
+
+void displayHALTest1_LEGRF(leg &_leg) {
+  _leg.foot.x =  LEG_POINT_X + HALTEST1_dx;
+  _leg.foot.y =  LEG_POINT_Y + HALTEST1_dy;
+  _leg.foot.z = -LEG_POINT_Z + HALTEST1_dz;
+}
+
+
+void displayHALTest1_LEGLB(leg &_leg) {
+  _leg.foot.x = -LEG_POINT_X + HALTEST1_dx;
+  _leg.foot.y = -LEG_POINT_Y + HALTEST1_dy;
+  _leg.foot.z = -LEG_POINT_Z + HALTEST1_dz;
+}
+
+void displayHALTest1_LEGRB(leg &_leg) {
+  _leg.foot.x =  LEG_POINT_X + HALTEST1_dx;
+  _leg.foot.y = -LEG_POINT_Y + HALTEST1_dy;
+  _leg.foot.z = -LEG_POINT_Z + HALTEST1_dz;
 }
