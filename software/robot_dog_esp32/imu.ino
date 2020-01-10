@@ -15,7 +15,6 @@ void initIMU()
 
 void calibrateIMU()
 {
-  displayReset();
   display.println("Calibrating ACC and GYRO in 5 seconds. Put device on flat leveled surface.");
   display.display();
   delay(5000);
@@ -40,7 +39,6 @@ void updateIMU()
 
 void displayIMU()
 {
-  displayReset();
   display.print("Roll  |X| ");
   display.println(IMU_DATA[ROLL], DISPLAY_DIGITS);
   display.print("Pitch |Y| ");

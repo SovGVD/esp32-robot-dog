@@ -45,7 +45,6 @@ void displayHALButtonsBody(int axis) {
 }
 
 void displayHALMoveBody(int axis) {
-  displayReset();
   displayHALButtonsBody(axis);
   display.print("Move by ");
   switch (axis) {
@@ -127,7 +126,6 @@ void displayEnableHAL() {
 }
 
 void displayHALStatus() {
-  displayReset();
   display.println("HAL status:");
   display.println(disableHAL?"disabled":"enabled"); // This is usuful to set servos to middle (90 deg or PI/2)
 }

@@ -1,7 +1,5 @@
 void displayI2CScan()
 {
-  displayReset();
-  
   for (byte i = 8; i < 120; i++)
   {
     Wire.beginTransmission (i);        // Begin I2C transmission Address (i)

@@ -110,7 +110,7 @@ void loop()
 
   updateIMU();
   updateHAL();
-  doHAL();  // TODO remove Adafruit_PWMServoDriver to use something native to be able to move servo part to Task
+  doHAL();
 
   buttonsUpdate();
   displayMenu();
@@ -121,3 +121,8 @@ void loop()
   loopTime = micros() - currentTime;  // i want to know full loop time, and yes it will be previous value in displayPing
 
 }
+
+/**
+ * TODO
+ *  - move display to another i2c and thread/task, sending data to display cost too much time
+ */

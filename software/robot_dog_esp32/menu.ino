@@ -88,6 +88,7 @@ bool isMenuDisplay()
 void displayMenuActivity()
 {
   if (isMenuDisplay()) return;
+  displayReset();
   MENU_ITEMS[MENU_CURRENT_GLOBAL_ITEM_INDEX].func();
 }
 
@@ -186,7 +187,7 @@ void displayButtonsProcess()
 
   // Action
   if (BUTTON_STATE[BUTTON_OK]) {
-      // call function with this name
+      // call function with this name with `displayMenuActivity` in main loop
       disableMenu();
       MENU_PREVIOUS = MENU_CURRENT;
   }

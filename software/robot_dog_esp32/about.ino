@@ -1,6 +1,5 @@
 bool aboutAnimation = true;
 void displayAbout() {
-  displayReset();
   if (aboutAnimation) {
     display.println("+----------+");
     display.println("+  0    _0 +");

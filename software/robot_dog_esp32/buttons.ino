@@ -1,4 +1,3 @@
-// TODO only one press
 unsigned int BUTTON_ADC_VALUE = 0;
 unsigned int BUTTON_LAST_PRESSED = BUTTON_NONE;
 

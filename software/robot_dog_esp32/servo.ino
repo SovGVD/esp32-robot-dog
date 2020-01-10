@@ -32,7 +32,6 @@ void servoTest() {
     testAngleWay = !testAngleWay;
   }
   
-  displayReset();
   display.print("Angle: ");
   display.println(testAngle, 4);
 
