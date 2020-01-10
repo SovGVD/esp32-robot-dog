@@ -18,6 +18,7 @@ Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 
 uint32_t currentTime;
 uint32_t loopTime;
+bool disableHAL = false;
 
 // buttons
 unsigned int BUTTON_VALUES[4] = {  1900,  3000,  2300,  1500 };

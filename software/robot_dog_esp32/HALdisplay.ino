@@ -114,5 +114,20 @@ void displayHALMoveBody(int axis) {
   display.print(" ");
   display.println(displayAngle(legs[LEGRB].angle.gamma), 0);
   displayHighlightEnd();
+}
 
+void displayDisableHAL() {
+  disableHAL = true;
+  displayHALStatus();
+}
+
+void displayEnableHAL() {
+  disableHAL = false;
+  displayHALStatus();
+}
+
+void displayHALStatus() {
+  displayReset();
+  display.println("HAL status:");
+  display.println(disableHAL?"disabled":"enabled"); // This is usuful to set servos to middle (90 deg or PI/2)
 }

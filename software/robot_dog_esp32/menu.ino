@@ -1,4 +1,4 @@
-#define MENU_ITEMS_NUM  29
+#define MENU_ITEMS_NUM  31
 #define MENU_GROUPS_NUM 9 //ROOT as 0, so groups+1
 
 const menuItem MENU_ITEMS[MENU_ITEMS_NUM] = {
@@ -20,8 +20,10 @@ const menuItem MENU_ITEMS[MENU_ITEMS_NUM] = {
   { "Run test(!!!)", 0, servoTest,          4, 2},
   { "Status",        0, menuDummyFunction,  4, 2},
 
-  { "Body", 6, menuSubMenu, 5, 2 },
-  { "Legs", 7, menuSubMenu, 5, 2 },
+  { "Body",    6, menuSubMenu,       5, 2 },
+  { "Legs",    7, menuSubMenu,       5, 2 },
+  { "Enable",  0, displayEnableHAL,  5, 2 },
+  { "Disable", 0, displayDisableHAL, 5, 2 },
 
   { "Move X (R/L)",  0, displayHALMoveBodyX, 6, 5 },
   { "Move Y (F/B)",  0, displayHALMoveBodyY, 6, 5 },

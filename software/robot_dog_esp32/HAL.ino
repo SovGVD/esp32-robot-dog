@@ -16,6 +16,8 @@ void initLegs() {
 }
 
 void updateHAL() {
+  if (disableHAL) return;
+
   updateLegs();
 }
 
