@@ -1,6 +1,7 @@
 #include <math.h>
 #include "def.h"
 #include "config.h"
+#include <EEPROM.h>
 
 #include <Wire.h>
 #include "menu.h"
@@ -65,9 +66,9 @@ leg legs[LEG_NUM] = {
     {false, true, false, false, false, true},
     {true, 35, 2000}
   },
-  // LEFT BACK
+  // LEFT HIND
   {
-    {LEGLB, "LB"},
+    {LEGLH, "LH"},
     {-LEG_BODY_X, -LEG_BODY_Y, LEG_BODY_Z},
     {LEG_SIZE_L1, LEG_SIZE_L2, LEG_SIZE_L3},
     {LEG_ANGLE_ALPHA_MIN, LEG_ANGLE_BETA_MIN, LEG_ANGLE_GAMMA_MIN},
@@ -82,9 +83,9 @@ leg legs[LEG_NUM] = {
     {true, true, false, false, false, true},
     {true, 39, 2000}
   },
-  // RIGHT BACK
+  // RIGHT HIND
   {
-    {LEGRB, "RB"},
+    {LEGRH, "RH"},
     {LEG_BODY_X, -LEG_BODY_Y, LEG_BODY_Z},
     {LEG_SIZE_L1, LEG_SIZE_L2, LEG_SIZE_L3},
     {LEG_ANGLE_ALPHA_MIN, LEG_ANGLE_BETA_MIN, LEG_ANGLE_GAMMA_MIN},
@@ -103,8 +104,8 @@ leg legs[LEG_NUM] = {
 
 IK ikLegLF(legs[LEGLF], body);
 IK ikLegRF(legs[LEGRF], body);
-IK ikLegLB(legs[LEGLB], body);
-IK ikLegRB(legs[LEGRB], body);
+IK ikLegLH(legs[LEGLH], body);
+IK ikLegRH(legs[LEGRH], body);
 
 
 
@@ -113,6 +114,7 @@ void setup()
   Serial.begin(SERIAL_BAUD);
 
   initDisplay();
+  initSettings();
   initMenu();
   initIMU();
   initHAL();

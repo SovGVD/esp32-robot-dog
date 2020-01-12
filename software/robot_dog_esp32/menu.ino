@@ -1,5 +1,10 @@
-#define MENU_ITEMS_NUM  35
-#define MENU_GROUPS_NUM 9 //ROOT as 0, so groups+1
+#define MENU_ITEMS_NUM  45
+#define MENU_GROUPS_NUM 12 //ROOT as 0, so groups+1
+
+// TODO use second INT value not only for the menu, but also for other functions
+//      it should reduce amount of copy-pasted functions
+//      e.g. 0, displayHALTrimLF[Alpha|Beta|Gamma] -> [ALPHA, BETA, GAMMA], displayHALTrimLF
+//      DONT THINK ABOUT use MENU_ITEMS[MENU_CURRENT_GLOBAL_ITEM_INDEX] - it is terrible solution... or may be not =)
 
 const menuItem MENU_ITEMS[MENU_ITEMS_NUM] = {
   { "Hardware", 2, menuSubMenu,        1, 0 },
@@ -33,17 +38,31 @@ const menuItem MENU_ITEMS[MENU_ITEMS_NUM] = {
   { "A.MoveZ (U/D)",  0, displayHALMoveBodyZAngle,    6, 5 },
   { "Test",           0, displayHALTest1,             6, 5 },
 
-  { "LEFT  FRONT",  8, menuSubMenu,       7, 5 },
-  { "RIGHT FRONT",  0, menuDummyFunction, 7, 5 },
-  { "LEFT  BACK",   0, menuDummyFunction, 7, 5 },
-  { "RIGHT BACK",   0, menuDummyFunction, 7, 5 },
+  { "LEFT  FRONT",   8, menuSubMenu, 7, 5 },
+  { "RIGHT FRONT",   9, menuSubMenu, 7, 5 },
+  { "LEFT  HIND",   10, menuSubMenu, 7, 5 },
+  { "RIGHT HIND",   11, menuSubMenu, 7, 5 },
 
-  { "Trim PITCH",   0, menuDummyFunction, 8, 7 },
-  { "Trim ROLL",    0, menuDummyFunction, 8, 7 },
-  { "Trim YAW",     0, menuDummyFunction, 8, 7 },
-  { "Move X",       0, menuDummyFunction, 8, 7 },
-  { "Move Y",       0, menuDummyFunction, 8, 7 },
-  { "Move Z",       0, menuDummyFunction, 8, 7 }
+  { "Alpha",  0, displayHALTrimLFAlpha,  8, 7 },
+  { "Beta",   0, displayHALTrimLFBeta,   8, 7 },
+  { "Gamma",  0, displayHALTrimLFGamma,  8, 7 },
+  { "[Save]", 0, displayHALTrimLFSave,   8, 7 },
+
+  { "Alpha",  0, displayHALTrimRFAlpha,  9, 7 },
+  { "Beta",   0, displayHALTrimRFBeta,   9, 7 },
+  { "Gamma",  0, displayHALTrimRFGamma,  9, 7 },
+  { "[Save]", 0, displayHALTrimRFSave,   9, 7 },
+
+  { "Alpha",  0, displayHALTrimLHAlpha, 10, 7 },
+  { "Beta",   0, displayHALTrimLHBeta,  10, 7 },
+  { "Gamma",  0, displayHALTrimLHGamma, 10, 7 },
+  { "[Save]", 0, displayHALTrimLHSave,  10, 7 },
+
+  { "Alpha",  0, displayHALTrimRHAlpha, 11, 7 },
+  { "Beta",   0, displayHALTrimRHBeta,  11, 7 },
+  { "Gamma",  0, displayHALTrimRHGamma, 11, 7 },
+  { "[Save]", 0, displayHALTrimRHSave,  11, 7 }
+
 };
 
 menuGroup MENU_GROUPS_LENGTH[MENU_GROUPS_NUM];

@@ -41,7 +41,7 @@
  *           |                     |
  *           +--0---------------0--*
  *              |               |
- *          0---0 (legRB)       0---0 (legRF)
+ *          0---0 (legRH)       0---0 (legRH)
  */
 #ifndef IK_h
 #define IK_h

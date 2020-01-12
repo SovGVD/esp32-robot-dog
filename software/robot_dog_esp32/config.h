@@ -5,7 +5,6 @@
 // Serial
 #define SERIAL_BAUD 115200 
 
-
 /*
  * I2C devices
  *  - PWM PCA9685
@@ -61,3 +60,6 @@
 #define LEG_POINT_X 122.6
 #define LEG_POINT_Y 155.0
 #define LEG_POINT_Z 249.304
+
+#define LEG_TRIM_INC   0.002   // radian
+#define LEG_TRIM_LIMIT  0.24   // See settingsUint8ToDouble()

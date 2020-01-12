@@ -2,10 +2,14 @@
  * Some usuful defines
  */
 
-#define LEGLF 0
-#define LEGRF 1
-#define LEGLB 2
-#define LEGRB 3
+#define LEGLF 0   // left  front leg
+#define LEGRF 1   // right front leg
+#define LEGLH 2   // left  hind  leg
+#define LEGRH 3   // right hind  leg
+
+#define ALPHA 0
+#define BETA  1
+#define GAMMA 2
 
 #define XAXIS     0
 #define YAXIS     1

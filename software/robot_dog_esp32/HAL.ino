@@ -7,12 +7,7 @@ void initHAL()
 }
 
 void initLegs() {
-  /*
-  legs[LEGLF].foot = ikLegLF.solveByAngle();
-  legs[LEGRF].foot = ikLegRF.solveByAngle();
-  legs[LEGLB].foot = ikLegLB.solveByAngle();
-  legs[LEGRB].foot = ikLegRB.solveByAngle();
-  */
+
 }
 
 void updateHAL() {
@@ -45,14 +40,14 @@ void updateLegs() {
   legs[LEGRF].angle = ikLegRF.solve().angle;
   
   #ifdef DEBUG_HAL_LEG
-    Serial.println("LEGLB");
+    Serial.println("LEGLH");
   #endif
-  legs[LEGLB].angle = ikLegLB.solve().angle;
+  legs[LEGLH].angle = ikLegLH.solve().angle;
 
   #ifdef DEBUG_HAL_LEG
-    Serial.println("LEGRB");
+    Serial.println("LEGRH");
   #endif
-  legs[LEGRB].angle = ikLegRB.solve().angle;
+  legs[LEGRH].angle = ikLegRH.solve().angle;
 }
 
 double mapf(double val, double in_min, double in_max, double out_min, double out_max) {

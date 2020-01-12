@@ -1,32 +1,6 @@
 double displayHALMovement = 1;  // mm
 double displayHALRotation = M_PI/180;
 
-// TODO too much copy-paste!!!
-
-void displayHALMoveBodyXAngle() {
-  displayHALMoveBody(XAXIS, true);
-}
-
-void displayHALMoveBodyYAngle() {
-  displayHALMoveBody(YAXIS, true);
-}
-
-void displayHALMoveBodyZAngle() {
-  displayHALMoveBody(ZAXIS, true);
-}
-
-void displayHALMoveBodyXPosition() {
-  displayHALMoveBody(XAXIS, false);
-}
-
-void displayHALMoveBodyYPosition() {
-  displayHALMoveBody(YAXIS, false);
-}
-
-void displayHALMoveBodyZPosition() {
-  displayHALMoveBody(ZAXIS, false);
-}
-
 
 void displayHALButtonsBody(int axis) {
   // TODO  pitch/roll/yaw
@@ -185,8 +159,8 @@ void displayHALTest1() {
 
   displayHALTest1_LEGLF(legs[LEGLF]);
   displayHALTest1_LEGRF(legs[LEGRF]);
-  displayHALTest1_LEGLB(legs[LEGLB]);
-  displayHALTest1_LEGRB(legs[LEGRB]);
+  displayHALTest1_LEGLH(legs[LEGLH]);
+  displayHALTest1_LEGRH(legs[LEGRH]);
 
   displayHALAngles();
 }
@@ -204,14 +178,43 @@ void displayHALTest1_LEGRF(leg &_leg) {
 }
 
 
-void displayHALTest1_LEGLB(leg &_leg) {
+void displayHALTest1_LEGLH(leg &_leg) {
   _leg.foot.x = -LEG_POINT_X + HALTEST1_dx;
   _leg.foot.y = -LEG_POINT_Y + HALTEST1_dy;
   _leg.foot.z = -LEG_POINT_Z + HALTEST1_dz;
 }
 
-void displayHALTest1_LEGRB(leg &_leg) {
+void displayHALTest1_LEGRH(leg &_leg) {
   _leg.foot.x =  LEG_POINT_X + HALTEST1_dx;
   _leg.foot.y = -LEG_POINT_Y + HALTEST1_dy;
   _leg.foot.z = -LEG_POINT_Z + HALTEST1_dz;
+}
+
+
+// ------------------
+
+// TODO too much copy-paste!!!
+
+void displayHALMoveBodyXAngle() {
+  displayHALMoveBody(XAXIS, true);
+}
+
+void displayHALMoveBodyYAngle() {
+  displayHALMoveBody(YAXIS, true);
+}
+
+void displayHALMoveBodyZAngle() {
+  displayHALMoveBody(ZAXIS, true);
+}
+
+void displayHALMoveBodyXPosition() {
+  displayHALMoveBody(XAXIS, false);
+}
+
+void displayHALMoveBodyYPosition() {
+  displayHALMoveBody(YAXIS, false);
+}
+
+void displayHALMoveBodyZPosition() {
+  displayHALMoveBody(ZAXIS, false);
 }
