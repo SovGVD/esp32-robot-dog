@@ -46,7 +46,7 @@ leg legs[LEG_NUM] = {
     },
     {-LEG_POINT_X, LEG_POINT_Y, -LEG_POINT_Z},
     {LEG_ANGLE_ALPHA, LEG_ANGLE_BETA, LEG_ANGLE_GAMMA},
-    {true, true, false, false, false, true},
+    {true, true, false, true, true, false},
     {true, 34, 2000}
   },
   // RIGHT FRONT
