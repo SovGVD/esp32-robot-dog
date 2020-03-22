@@ -80,7 +80,7 @@ leg legs[LEG_NUM] = {
     },
     {-LEG_POINT_X, -LEG_POINT_Y, -LEG_POINT_Z},
     {LEG_ANGLE_ALPHA, LEG_ANGLE_BETA, LEG_ANGLE_GAMMA},
-    {true, true, false, false, false, true},
+    {true, true, false, false, true, true},
     {true, 39, 2000}
   },
   // RIGHT HIND
@@ -97,7 +97,7 @@ leg legs[LEG_NUM] = {
     },
     {LEG_POINT_X, -LEG_POINT_Y, -LEG_POINT_Z},
     {LEG_ANGLE_ALPHA, LEG_ANGLE_BETA, LEG_ANGLE_GAMMA},
-    {false, true, false, false, false, true},
+    {false, true, false, true, false, false},
     {true, 36, 2000}
   }
 };
