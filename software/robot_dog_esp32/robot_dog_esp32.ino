@@ -5,7 +5,7 @@
 #include <EEPROM.h>
 #include "WiFi.h"
 #include "ESPAsyncWebServer.h"
-#include "public_html.h"
+#include "web/index.html.gz.h"
 
 #include <Wire.h>
 #include "menu.h"

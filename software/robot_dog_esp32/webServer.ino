@@ -6,11 +6,11 @@ void initWebServer() {
 
 void initWebServerRoutes() {  
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(200, "text/html", index_html);
+    AsyncWebServerResponse *response = request->beginResponse_P(200, "text/html",  index_html_gz, index_html_gz_len);
+    response->addHeader("Content-Encoding", "gzip");
+    request->send(response);  
   });
-  server.on("/w.js", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(200, "application/x-javascript", scripts_ws_js);
-  });
+    
   // Dinamic config
   server.on("/c.js", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(200, "application/x-javascript", "var c={w:'ws://" + WiFiIP.toString() + "/ws'}");
