@@ -103,13 +103,8 @@ void displayHALAngles() {
   }
 }
 
-void displayDisableHAL() {
-  disableHAL = true;
-  displayHALStatus();
-}
-
-void displayEnableHAL() {
-  disableHAL = false;
+void displayToggleHAL(int toggle) {
+  disableHAL = toggle == 1?true:false;
   displayHALStatus();
 }
 
@@ -127,7 +122,7 @@ double HALTEST1_d     = 1;
 int HALTEST1_stage = 0;
 double HALTEST1_delta = 49.9; // +-50 mm (square 100x100)
 
-void displayHALTest1() {
+void displayHALTest(int test) {
   switch (HALTEST1_stage) {
     case 0:
       HALTEST1_dy = HALTEST1_dy + HALTEST1_d;
@@ -195,26 +190,10 @@ void displayHALTest1_LEGRH(leg &_leg) {
 
 // TODO too much copy-paste!!!
 
-void displayHALMoveBodyXAngle() {
-  displayHALMoveBody(XAXIS, true);
+void displayHALMoveBodyAngle(int axis) {
+  displayHALMoveBody(axis, true);
 }
 
-void displayHALMoveBodyYAngle() {
-  displayHALMoveBody(YAXIS, true);
-}
-
-void displayHALMoveBodyZAngle() {
-  displayHALMoveBody(ZAXIS, true);
-}
-
-void displayHALMoveBodyXPosition() {
-  displayHALMoveBody(XAXIS, false);
-}
-
-void displayHALMoveBodyYPosition() {
-  displayHALMoveBody(YAXIS, false);
-}
-
-void displayHALMoveBodyZPosition() {
-  displayHALMoveBody(ZAXIS, false);
+void displayHALMoveBodyPosition(int axis) {
+  displayHALMoveBody(axis, false);
 }

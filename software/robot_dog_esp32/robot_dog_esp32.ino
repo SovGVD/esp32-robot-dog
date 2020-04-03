@@ -1,7 +1,11 @@
 #include <math.h>
 #include "def.h"
 #include "config.h"
+#include "config_wifi.h"
 #include <EEPROM.h>
+#include "WiFi.h"
+#include "ESPAsyncWebServer.h"
+#include "public_html.h"
 
 #include <Wire.h>
 #include "menu.h"
@@ -107,7 +111,12 @@ IK ikLegRF(legs[LEGRF], body);
 IK ikLegLH(legs[LEGLH], body);
 IK ikLegRH(legs[LEGRH], body);
 
-
+// WebServer
+bool clientOnline = false;
+int WiFiMode = AP_MODE;
+IPAddress WiFiIP;
+AsyncWebServer server(80);
+AsyncWebSocket ws("/ws");
 
 void setup()
 {
@@ -118,7 +127,8 @@ void setup()
   initMenu();
   initIMU();
   initHAL();
-
+  initWiFi();
+  initWebServer();
 }
 
 void loop()
@@ -129,6 +139,7 @@ void loop()
   updateHAL();
   doHAL();
 
+  updateWiFi();
   buttonsUpdate();
   displayMenu();
   displayMenuActivity();

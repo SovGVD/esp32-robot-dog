@@ -1,67 +1,74 @@
-#define MENU_ITEMS_NUM  45
-#define MENU_GROUPS_NUM 12 //ROOT as 0, so groups+1
-
-// TODO use second INT value not only for the menu, but also for other functions
-//      it should reduce amount of copy-pasted functions
-//      e.g. 0, displayHALTrimLF[Alpha|Beta|Gamma] -> [ALPHA, BETA, GAMMA], displayHALTrimLF
-//      DONT THINK ABOUT use MENU_ITEMS[MENU_CURRENT_GLOBAL_ITEM_INDEX] - it is terrible solution... or may be not =)
+#define MENU_ITEMS_NUM  54
+#define MENU_GROUPS_NUM 15 //ROOT as 0, so groups+1
 
 const menuItem MENU_ITEMS[MENU_ITEMS_NUM] = {
-  { "Hardware", 2, menuSubMenu,        1, 0 },
-  { "WiFi/BT",  0, menuDummyFunction,  1, 0 },
-  { "Tests",    0, menuDummyFunction,  1, 0 },
-  { "About",    0, displayAbout,       1, 0 },
+  { "Hardware",  2, menuSubMenu,        1, 0 },
+  { "WiFi",     12, menuSubMenu,        1, 0 },
+  { "Tests",     0, menuDummyFunction,  1, 0 },
+  { "About",     0, displayAbout,       1, 0 }, //4
 
   { "IMU/MAG",  3, menuSubMenu,        2, 1 },
   { "HAL",      5, menuSubMenu,        2, 1 },
   { "Servo",    4, menuSubMenu,        2, 1 },
-  { "I2C scan", 0, displayI2CScan,     2, 1 },
+  { "I2C scan", 0, displayI2CScan,     2, 1 }, //8
 
   { "Status",        0, displayIMU,         3, 2 },
   { "Calibrate IMU", 0, calibrateIMU,       3, 2 },
-  { "Calibrate MAG", 0, menuDummyFunction,  3, 2 },
+  { "Calibrate MAG", 0, menuDummyFunction,  3, 2 }, //11
 
   { "Set to middle", 0, setServoToMiddle,   4, 2},
   { "Run test(!!!)", 0, servoTest,          4, 2},
-  { "Status",        0, menuDummyFunction,  4, 2},
+  { "Status",        0, menuDummyFunction,  4, 2}, //14
 
   { "Body",    6, menuSubMenu,       5, 2 },
   { "Legs",    7, menuSubMenu,       5, 2 },
-  { "Enable",  0, displayEnableHAL,  5, 2 },
-  { "Disable", 0, displayDisableHAL, 5, 2 },
+  { "Enable",  1, displayToggleHAL,  5, 2 },
+  { "Disable", 0, displayToggleHAL,  5, 2 },  //18
 
-  { "P.MoveX (R/L)",  0, displayHALMoveBodyXPosition, 6, 5 },
-  { "P.MoveY (F/B)",  0, displayHALMoveBodyYPosition, 6, 5 },
-  { "P.MoveZ (U/D)",  0, displayHALMoveBodyZPosition, 6, 5 },
-  { "A.MoveX (R/L)",  0, displayHALMoveBodyXAngle,    6, 5 },
-  { "A.MoveY (F/B)",  0, displayHALMoveBodyYAngle,    6, 5 },
-  { "A.MoveZ (U/D)",  0, displayHALMoveBodyZAngle,    6, 5 },
-  { "Test",           0, displayHALTest1,             6, 5 },
+  { "P.MoveX (R/L)",  XAXIS, displayHALMoveBodyPosition, 6, 5 },
+  { "P.MoveY (F/B)",  YAXIS, displayHALMoveBodyPosition, 6, 5 },
+  { "P.MoveZ (U/D)",  ZAXIS, displayHALMoveBodyPosition, 6, 5 },
+  { "A.MoveX (R/L)",  XAXIS, displayHALMoveBodyAngle,    6, 5 },
+  { "A.MoveY (F/B)",  YAXIS, displayHALMoveBodyAngle,    6, 5 },
+  { "A.MoveZ (U/D)",  ZAXIS, displayHALMoveBodyAngle,    6, 5 },
+  { "Test",               1, displayHALTest,             6, 5 }, //25
 
   { "LEFT  FRONT",   8, menuSubMenu, 7, 5 },
   { "RIGHT FRONT",   9, menuSubMenu, 7, 5 },
   { "LEFT  HIND",   10, menuSubMenu, 7, 5 },
-  { "RIGHT HIND",   11, menuSubMenu, 7, 5 },
+  { "RIGHT HIND",   11, menuSubMenu, 7, 5 },  //29
 
-  { "Alpha",  0, displayHALTrimLFAlpha,  8, 7 },
-  { "Beta",   0, displayHALTrimLFBeta,   8, 7 },
-  { "Gamma",  0, displayHALTrimLFGamma,  8, 7 },
-  { "[Save]", 0, displayHALTrimLFSave,   8, 7 },
+  { "Alpha",  ALPHA, displayHALTrimLF,        8, 7 },
+  { "Beta",   BETA,  displayHALTrimLF,        8, 7 },
+  { "Gamma",  GAMMA, displayHALTrimLF,        8, 7 },
+  { "[Save]", LEGLF, menuDisplayHALTrimSave,  8, 7 },  //33
 
-  { "Alpha",  0, displayHALTrimRFAlpha,  9, 7 },
-  { "Beta",   0, displayHALTrimRFBeta,   9, 7 },
-  { "Gamma",  0, displayHALTrimRFGamma,  9, 7 },
-  { "[Save]", 0, displayHALTrimRFSave,   9, 7 },
+  { "Alpha",  ALPHA, displayHALTrimRF,        9, 7 },
+  { "Beta",   BETA,  displayHALTrimRF,        9, 7 },
+  { "Gamma",  GAMMA, displayHALTrimRF,        9, 7 },
+  { "[Save]", LEGRF, menuDisplayHALTrimSave,  9, 7 },  //37
 
-  { "Alpha",  0, displayHALTrimLHAlpha, 10, 7 },
-  { "Beta",   0, displayHALTrimLHBeta,  10, 7 },
-  { "Gamma",  0, displayHALTrimLHGamma, 10, 7 },
-  { "[Save]", 0, displayHALTrimLHSave,  10, 7 },
+  { "Alpha",  ALPHA, displayHALTrimLH,       10, 7 },
+  { "Beta",   BETA,  displayHALTrimLH,       10, 7 },
+  { "Gamma",  GAMMA, displayHALTrimLH,       10, 7 },
+  { "[Save]", LEGLH, menuDisplayHALTrimSave, 10, 7 },  //41
 
-  { "Alpha",  0, displayHALTrimRHAlpha, 11, 7 },
-  { "Beta",   0, displayHALTrimRHBeta,  11, 7 },
-  { "Gamma",  0, displayHALTrimRHGamma, 11, 7 },
-  { "[Save]", 0, displayHALTrimRHSave,  11, 7 }
+  { "Alpha",  ALPHA, displayHALTrimRH,       11, 7 },
+  { "Beta",   BETA,  displayHALTrimRH,       11, 7 },
+  { "Gamma",  GAMMA, displayHALTrimRH,       11, 7 },
+  { "[Save]", LEGRH, menuDisplayHALTrimSave, 11, 7 },  //45
+
+  { "Connect to", 14, menuSubMenu, 12, 1 },
+  { "AP info",     0, WiFiInfo,    12, 1 },
+  { "Mode",       13, menuSubMenu, 12, 1 },  //48
+
+  { "AP",      AP_MODE, menuWiFiSetMode, 13, 12},
+  { "Client",        1, menuWiFiSetMode, 13, 12},  //50
+
+  { "AP 1", 1, menuWiFiSetMode, 14, 12},
+  { "AP 2", 2, menuWiFiSetMode, 14, 12},
+  { "AP 3", 3, menuWiFiSetMode, 14, 12},
+  { "AP 4", 4, menuWiFiSetMode, 14, 12} //54
 
 };
 
@@ -112,7 +119,7 @@ void displayMenuActivity()
 {
   if (isMenuDisplay()) return;
   displayReset();
-  MENU_ITEMS[MENU_CURRENT_GLOBAL_ITEM_INDEX].func();
+  MENU_ITEMS[MENU_CURRENT_GLOBAL_ITEM_INDEX].func(MENU_ITEMS[MENU_CURRENT_GLOBAL_ITEM_INDEX].funcArg);
 }
 
 bool isMenuSpaceAvailable()
@@ -170,12 +177,12 @@ void setMenuByMenuItem(menuItem m)
   MENU_CURRENT_ITEM_INDEX = 0;
 }
 
-void menuSubMenu()
+void menuSubMenu(int id)
 {
   setMenuByMenuItem(MENU_ITEMS[MENU_CURRENT_GLOBAL_ITEM_INDEX]);
 }
 
-void menuDummyFunction()
+void menuDummyFunction(int id)
 {
   enableMenu();
 }

@@ -1,6 +1,6 @@
 void initHAL()
 {
-  display.println("Init HAL");
+  display.print(" HAL ");
   initServo();
   initLegs();
   display.display();

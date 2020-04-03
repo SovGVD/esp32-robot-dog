@@ -1,4 +1,4 @@
-void displayI2CScan()
+void displayI2CScan(int id)
 {
   for (byte i = 8; i < 120; i++)
   {

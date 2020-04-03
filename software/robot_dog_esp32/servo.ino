@@ -8,7 +8,7 @@ bool testAngleWay = true;
 
 void initServo()
 {
-  display.println("Init servo");
+  display.println(" Servo ");
   display.display();
   
   pwm.begin();
@@ -17,7 +17,7 @@ void initServo()
 }
 
 
-void servoTest() {
+void servoTest(int id) {
   if (testAngleWay) {
     testAngle = testAngle + testAngleInc;
   } else {
@@ -49,7 +49,7 @@ void servoTest() {
   
 }
 
-void setServoToMiddle()
+void setServoToMiddle(int id)
 {
   for (int i = 0; i < LEG_NUM; i++) {
     legs[i].angle.alpha = M_PI/2;

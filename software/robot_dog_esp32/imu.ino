@@ -8,12 +8,12 @@ float IMU_DATA[3] = {0, 0, 0};
 
 void initIMU()
 {
-  display.println("Init IMU");
+  display.println(" IMU ");
   display.display();
   mpu.setup();
 }
 
-void calibrateIMU()
+void calibrateIMU(int id)
 {
   display.println("Calibrating ACC and GYRO in 5 seconds. Put device on flat leveled surface.");
   display.display();
@@ -37,7 +37,7 @@ void updateIMU()
   
 }
 
-void displayIMU()
+void displayIMU(int id)
 {
   display.print("Roll  |X| ");
   display.println(IMU_DATA[ROLL], DISPLAY_DIGITS);

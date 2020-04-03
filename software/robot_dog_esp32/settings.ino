@@ -8,6 +8,7 @@
  *    5,6,7: RF alpha, beta, gamma
  *   8,9,10: LH alpha, beta, gamma
  * 11,12,13: RH alpha, beta, gamma
+ *       14: WiFi mode (AP = 0 (default), 1...255 number of default WiFi AP to connect)
  */
 
 #define EEPROM_VERSION 0x01
@@ -20,7 +21,7 @@
 
 
 void initSettings() {
-  display.println("Init Settings");
+  display.print(" Settings ");
   display.display();
 
   EEPROM.begin(EEPROM_SIZE);
@@ -46,10 +47,13 @@ void settingsInitEEPROM() {
   for (int i = 2; i < 14; i++) {
     EEPROM.write(i,128);  // Zeroes for trim
   }
-  for (int i = 14; i < EEPROM_SIZE; i++) {
+  
+  settingsSaveWiFi(AP_MODE); // Set AP mode
+  
+  for (int i = 15; i < EEPROM_SIZE; i++) {
     EEPROM.write(i,0);
   }
-  EEPROM.commit();
+  settingsCommit();
 }
 
 void settingsCommit() {
@@ -76,9 +80,10 @@ uint8_t settingsDoubleToUint8(double value) {
 
 void settingsLoad() {
   settingsLoadTrim();
+  WiFiMode = settingsLoadWiFi();
 }
 
-
+// leg trim values
 void settingsLoadTrim() {
   for (int i = 0; i < LEG_NUM; i++) {
     legs[i].hal.trim = settingsLoadTrimLeg(legs[i]);
@@ -100,4 +105,15 @@ void settingsSaveTrimLeg(leg &_leg) {
   EEPROM.write(offset+1, settingsDoubleToUint8(_leg.hal.trim.beta));
   EEPROM.write(offset+2, settingsDoubleToUint8(_leg.hal.trim.gamma));
   settingsCommit();
+}
+
+// WiFi
+int settingsLoadWiFi() {
+  return (int)EEPROM.read(14);
+}
+
+int settingsSaveWiFi(int id) {
+  EEPROM.write(14, id);
+  settingsCommit();
+  return id;
 }

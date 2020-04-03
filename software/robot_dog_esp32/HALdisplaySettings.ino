@@ -43,78 +43,29 @@ void displayHALTrimSave(leg &_leg) {
   menuBack();
 }
 
+void menuDisplayHALTrimSave(int id) {
+  displayHALTrimSave(legs[id]);
+}
+
+
 // -------------------------
 
-// TODO
-// I need to do something with that copy-paste hell
-
 // LEFT FRONT
-void displayHALTrimLFAlpha() {
-  displayHALTrim(legs[LEGLF], ALPHA);
+void displayHALTrimLF(int angle) {
+  displayHALTrim(legs[LEGLF], angle);
 }
-
-void displayHALTrimLFBeta() {
-  displayHALTrim(legs[LEGLF], BETA);
-}
-
-void displayHALTrimLFGamma() {
-  displayHALTrim(legs[LEGLF], GAMMA);
-}
-
-void displayHALTrimLFSave() {
-  displayHALTrimSave(legs[LEGLF]);
-}
-
 
 // RIGHT FRONT
-void displayHALTrimRFAlpha() {
-  displayHALTrim(legs[LEGRF], ALPHA);
+void displayHALTrimRF(int angle) {
+  displayHALTrim(legs[LEGRF], angle);
 }
-
-void displayHALTrimRFBeta() {
-  displayHALTrim(legs[LEGRF], BETA);
-}
-
-void displayHALTrimRFGamma() {
-  displayHALTrim(legs[LEGRF], GAMMA);
-}
-
-void displayHALTrimRFSave() {
-  displayHALTrimSave(legs[LEGRF]);
-}
-
 
 // LEFT HIND
-void displayHALTrimLHAlpha() {
-  displayHALTrim(legs[LEGLH], ALPHA);
+void displayHALTrimLH(int angle) {
+  displayHALTrim(legs[LEGLH], angle);
 }
-
-void displayHALTrimLHBeta() {
-  displayHALTrim(legs[LEGLH], BETA);
-}
-
-void displayHALTrimLHGamma() {
-  displayHALTrim(legs[LEGLH], GAMMA);
-}
-
-void displayHALTrimLHSave() {
-  displayHALTrimSave(legs[LEGLH]);
-}
-
 
 // RIGHT HIND
-void displayHALTrimRHAlpha() {
-  displayHALTrim(legs[LEGRH], ALPHA);
-}
-
-void displayHALTrimRHBeta() {
-  displayHALTrim(legs[LEGRH], BETA);
-}
-
-void displayHALTrimRHGamma() {
-  displayHALTrim(legs[LEGRH], GAMMA);
-}
-
-void displayHALTrimRHSave() {
-  displayHALTrimSave(legs[LEGRH]);
+void displayHALTrimRH(int angle) {
+  displayHALTrim(legs[LEGRH], angle);
 }

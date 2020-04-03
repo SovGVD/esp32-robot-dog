@@ -15,7 +15,7 @@ void initDisplay()
   display.setCursor(0, 0);     // Start at top-left corner
   display.cp437(true);         // Use full 256 char 'Code Page 437' font
 
-  display.println("Init display");
+  display.print(" Display ");
   display.display();
 }
 

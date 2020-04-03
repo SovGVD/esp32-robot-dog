@@ -45,6 +45,8 @@
 /* Math */
 #define RADTODEGREE 180/PI
 
+/* WiFi */
+#define AP_MODE 0
 
 /* Debug (SLOW!!!)*/
 //#define DEBUG_HAL_LEG

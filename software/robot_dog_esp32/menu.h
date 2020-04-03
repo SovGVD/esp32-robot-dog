@@ -1,7 +1,7 @@
 
 /* -------------------- */
 
-typedef void (*menuItemFunction)();
+typedef void (*menuItemFunction)(int);
 
 const typedef struct menuItem_t {
  char title[14];

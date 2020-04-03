@@ -1,5 +1,5 @@
 bool aboutAnimation = true;
-void displayAbout() {
+void displayAbout(int id) {
   if (aboutAnimation) {
     display.println("+----------+");
     display.println("+  0    _0 +");
