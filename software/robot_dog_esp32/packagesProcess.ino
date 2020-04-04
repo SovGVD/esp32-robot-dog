@@ -3,9 +3,10 @@ int bytesToInt16(uint8_t byte1, uint8_t byte2) {
 }
 
 void pMove(uint8_t* data) {
-  // TODO RC failsafe on disconnect
-  vector.x    = float(bytesToInt16(data[1], data[2]))/10000-1;
-  vector.y    = float(bytesToInt16(data[3], data[4]))/10000-1;
-  vector.z    = float(bytesToInt16(data[5], data[6]))/10000-1;
-  vector.angZ = float(bytesToInt16(data[7], data[8]))/10000-1;
+  if (data[1] == 0) setFailsafe();
+  
+  vector.x    = float(bytesToInt16(data[2], data[3]))/10000-1;
+  vector.y    = float(bytesToInt16(data[4], data[5]))/10000-1;
+  vector.z    = float(bytesToInt16(data[6], data[7]))/10000-1;
+  vector.angZ = float(bytesToInt16(data[8], data[9]))/10000-1;
 }

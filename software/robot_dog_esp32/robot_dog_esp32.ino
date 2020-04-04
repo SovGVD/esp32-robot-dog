@@ -121,6 +121,10 @@ AsyncWebSocket ws("/ws");
 //Move
 moveVector vector = {0,0,0,0};
 
+//Failsafe
+bool FS_FAIL = false;
+uint8_t FS_WS_count = 0;
+
 void setup()
 {
   Serial.begin(SERIAL_BAUD);
@@ -136,8 +140,10 @@ void setup()
 
 void loop()
 {
+  // TODO stable cycle, tune FS after that
   currentTime = micros();
 
+  updateFailsafe();
   updateIMU();
   updateHAL();
   doHAL();
@@ -149,6 +155,7 @@ void loop()
   buttonsReset();
 
   displayPing();
+  FS_WS_count++;
   loopTime = micros() - currentTime;  // i want to know full loop time, and yes it will be previous value in displayPing
 
 }

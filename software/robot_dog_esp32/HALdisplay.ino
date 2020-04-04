@@ -2,6 +2,7 @@ double displayHALMovement = 1;  // mm
 double displayHALRotation = M_PI/180;
 
 void displayHALVector(int id) {
+  if(FS_FAIL) displayHighlightBegin();
   display.print("X   :");
   display.println(vector.x, 4);
 
@@ -13,6 +14,10 @@ void displayHALVector(int id) {
 
   display.print("AngZ:");
   display.println(vector.angZ, 4);
+  displayHighlightEnd();
+  
+  display.print("FS  :");
+  display.println(FS_WS_count);
 
 }
 

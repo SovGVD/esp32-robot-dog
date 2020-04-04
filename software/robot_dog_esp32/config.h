@@ -63,3 +63,6 @@
 
 #define LEG_TRIM_INC   0.002   // radian
 #define LEG_TRIM_LIMIT  0.24   // See settingsUint8ToDouble()
+
+//Fais safe
+#define FS_WS_THR 15

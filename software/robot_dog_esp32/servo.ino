@@ -8,7 +8,7 @@ bool testAngleWay = true;
 
 void initServo()
 {
-  display.println(" Servo ");
+  display.print(" Servo ");
   display.display();
   
   pwm.begin();
