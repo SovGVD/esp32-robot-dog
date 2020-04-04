@@ -21,6 +21,7 @@ var gamepad = {
     },
 
     disconnect: function(evt) {
+		// TODO failsafe!!!
 		clearInterval(gamepad.updateInterval);
 		gamepad.updateInterval = null;
     },
@@ -36,13 +37,11 @@ var gamepad = {
 		vector.z    = gamepad.axeData(gp.axes[1]);
 		vector.x    = gamepad.axeData(gp.axes[2]);
 		vector.y    = gamepad.axeData(gp.axes[3]);
-		
-		ws.update();
     },
 
     axeData: function (raw) {
+		if (raw >= -gamepad.dead && raw <= gamepad.dead) raw = 0;
 		let value = parseInt(raw*1000)/1000;
-		if (value >= - gamepad.gpDead && value <= gamepad.gpDead) value = 0;
 		return -value;
     },
 
@@ -65,8 +64,8 @@ var ws = {
 			ws.ws.onerror = function() {
 			ws.status = false;
 			};
-			
-			//ws.updateInterval = setInterval(ws.update, 50);
+			// TODO failsafe!!!
+			ws.updateInterval = setInterval(ws.update, 50);
 		} catch(e) {
 			clearInterval(ws.updateInterval);
 			ws.status = false;
@@ -88,7 +87,7 @@ var gui ={
 		gui.obj.vector_z    = G('vector_z');
 		gui.obj.vector_angZ = G('vector_angZ');
 		
-		gui.updateInterval = setInterval(gui.update, 500);
+		gui.updateInterval = setInterval(gui.update, 100);
     },
     update: function () {
 		gui.showVector();
@@ -104,20 +103,18 @@ var gui ={
 };
 
 var packet = {
-    _int16LE: function (num) {
-	var ascii='';
-	for (let i=1;i>=0;i--) {
-	    ascii+=String.fromCharCode((num>>(8*i))&255);
-	}
-	return ascii;
+    _int16: function (num) {
+		var ascii =String.fromCharCode((num>>8)&255);
+			ascii+=String.fromCharCode(num&255);
+		return ascii;
     },
     move: function () {
 		return 'M' 
-		+ packet._int16LE(vector.x*10000) 
-		+ packet._int16LE(vector.y*10000) 
-		+ packet._int16LE(vector.z*10000) 
-		+ packet._int16LE(vector.angZ*10000);
-		}
+			+ packet._int16((vector.x+1)*1000) 
+			+ packet._int16((vector.y+1)*1000) 
+			+ packet._int16((vector.z+1)*1000) 
+			+ packet._int16((vector.angZ+1)*1000);
+	}
 }
 
 gui.init();
