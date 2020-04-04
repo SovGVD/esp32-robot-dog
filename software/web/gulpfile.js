@@ -25,7 +25,7 @@ gulp.task('buildfs_embeded', ['buildfs_inline'], function() {
 
     var wstream = fs.createWriteStream(destination);
     wstream.on('error', function (err) {
-        console.log(err);
+        console.log('WRITE ERROR', err);
     });
 
     var data = fs.readFileSync(source);
@@ -50,7 +50,7 @@ gulp.task('buildfs_inline', ['clean'], function() {
         // .pipe(favicon())
         .pipe(inline({
             base: 'src/',
-            js: uglify,
+            //js: uglify,
             css: [cleancss, inlineImages],
             disabledTypes: ['svg', 'img']
         }))
