@@ -103,20 +103,26 @@ var gui ={
 };
 
 var packet = {
-    _int16: function (num) {
-		var ascii =String.fromCharCode((num>>8)&255);
-			ascii+=String.fromCharCode(num&255);
-		return ascii;
+	init: function () {
+		packet.pMove = new ArrayBuffer(9);
+		packet.vMove = new Uint8Array(packet.pMove);
+	},
+    _uint16: function (view, num, offset) {
+		view[offset]   = (num>>8)&255;
+		view[offset+1] = num&255;
     },
+
     move: function () {
-		return 'M' 
-			+ packet._int16((vector.x+1)*1000) 
-			+ packet._int16((vector.y+1)*1000) 
-			+ packet._int16((vector.z+1)*1000) 
-			+ packet._int16((vector.angZ+1)*1000);
+		packet.vMove[0] = 77;
+		packet._uint16(packet.vMove, (vector.x+1)*10000, 1);
+		packet._uint16(packet.vMove, (vector.y+1)*10000, 3);
+		packet._uint16(packet.vMove, (vector.z+1)*10000, 5);
+		packet._uint16(packet.vMove, (vector.angZ+1)*10000, 7);
+		return packet.pMove;
 	}
 }
 
+packet.init();
 gui.init();
 ws.init();
 gamepad.init();
