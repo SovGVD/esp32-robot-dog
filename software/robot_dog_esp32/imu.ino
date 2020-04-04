@@ -8,7 +8,7 @@ float IMU_DATA[3] = {0, 0, 0};
 
 void initIMU()
 {
-  display.println(" IMU ");
+  display.print(" IMU ");
   display.display();
   mpu.setup();
 }

@@ -28,8 +28,13 @@ void onWsEvent(AsyncWebSocket * server, AsyncWebSocketClient * client, AwsEventT
     client->text("Ok");
     clientOnline = true;
   } else if (clientOnline && type == WS_EVT_DATA) {
-    if (data[0] == 70) {
-      // TODO
+      //for(int i=0; i < len; i++) {
+      //  Serial.print(data[i]);
+      //  Serial.print("|");
+      //}
+      //Serial.println();
+    if (data[0] == 77) {  // M
+      pMove(data);
     }
   } else if(type == WS_EVT_DISCONNECT){
     clientOnline = false;

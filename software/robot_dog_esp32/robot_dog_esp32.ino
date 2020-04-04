@@ -118,6 +118,9 @@ IPAddress WiFiIP;
 AsyncWebServer server(80);
 AsyncWebSocket ws("/ws");
 
+//Move
+moveVector vector = {0,0,0,0};
+
 void setup()
 {
   Serial.begin(SERIAL_BAUD);

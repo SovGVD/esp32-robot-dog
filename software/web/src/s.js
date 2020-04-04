@@ -21,9 +21,12 @@ var gamepad = {
     },
 
     disconnect: function(evt) {
-		// TODO failsafe!!!
 		clearInterval(gamepad.updateInterval);
 		gamepad.updateInterval = null;
+		vector.angZ = 0;
+		vector.z    = 0;
+		vector.x    = 0;
+		vector.y    = 0;
     },
 
     update: function() {
@@ -40,12 +43,13 @@ var gamepad = {
     },
 
     axeData: function (raw) {
-		if (raw >= -gamepad.dead && raw <= gamepad.dead) raw = 0;
-		let value = parseInt(raw*1000)/1000;
-		return -value;
+		if (raw >= -gamepad.deadband && raw <= gamepad.deadband) raw = 0;
+		if (raw < -1) raw = -1;
+		if (raw >  1) raw =  1;
+		return -parseInt(raw*10000)/10000;
     },
 
-    dead: 0.005,
+    deadband: 0.005,
     updateInterval: null,
 };
 
@@ -107,6 +111,9 @@ var packet = {
 		packet.pMove = new ArrayBuffer(9);
 		packet.vMove = new Uint8Array(packet.pMove);
 	},
+	_norm1: function (value) {
+		return (value+1)*10000;
+	},
     _uint16: function (view, num, offset) {
 		view[offset]   = (num>>8)&255;
 		view[offset+1] = num&255;
@@ -114,10 +121,10 @@ var packet = {
 
     move: function () {
 		packet.vMove[0] = 77;
-		packet._uint16(packet.vMove, (vector.x+1)*10000, 1);
-		packet._uint16(packet.vMove, (vector.y+1)*10000, 3);
-		packet._uint16(packet.vMove, (vector.z+1)*10000, 5);
-		packet._uint16(packet.vMove, (vector.angZ+1)*10000, 7);
+		packet._uint16(packet.vMove, packet._norm1(vector.x),    1);
+		packet._uint16(packet.vMove, packet._norm1(vector.y),    3);
+		packet._uint16(packet.vMove, packet._norm1(vector.z),    5);
+		packet._uint16(packet.vMove, packet._norm1(vector.angZ), 7);
 		return packet.pMove;
 	}
 }

@@ -1,4 +1,4 @@
-#define MENU_ITEMS_NUM  54
+#define MENU_ITEMS_NUM  55
 #define MENU_GROUPS_NUM 15 //ROOT as 0, so groups+1
 
 const menuItem MENU_ITEMS[MENU_ITEMS_NUM] = {
@@ -22,8 +22,9 @@ const menuItem MENU_ITEMS[MENU_ITEMS_NUM] = {
 
   { "Body",    6, menuSubMenu,       5, 2 },
   { "Legs",    7, menuSubMenu,       5, 2 },
+  { "Vector",  0, displayHALVector,  5, 2 },
   { "Enable",  1, displayToggleHAL,  5, 2 },
-  { "Disable", 0, displayToggleHAL,  5, 2 },  //18
+  { "Disable", 0, displayToggleHAL,  5, 2 },  //19
 
   { "P.MoveX (R/L)",  XAXIS, displayHALMoveBodyPosition, 6, 5 },
   { "P.MoveY (F/B)",  YAXIS, displayHALMoveBodyPosition, 6, 5 },
@@ -31,44 +32,44 @@ const menuItem MENU_ITEMS[MENU_ITEMS_NUM] = {
   { "A.MoveX (R/L)",  XAXIS, displayHALMoveBodyAngle,    6, 5 },
   { "A.MoveY (F/B)",  YAXIS, displayHALMoveBodyAngle,    6, 5 },
   { "A.MoveZ (U/D)",  ZAXIS, displayHALMoveBodyAngle,    6, 5 },
-  { "Test",               1, displayHALTest,             6, 5 }, //25
+  { "Test",               1, displayHALTest,             6, 5 }, //26
 
   { "LEFT  FRONT",   8, menuSubMenu, 7, 5 },
   { "RIGHT FRONT",   9, menuSubMenu, 7, 5 },
   { "LEFT  HIND",   10, menuSubMenu, 7, 5 },
-  { "RIGHT HIND",   11, menuSubMenu, 7, 5 },  //29
+  { "RIGHT HIND",   11, menuSubMenu, 7, 5 },  //30
 
   { "Alpha",  ALPHA, displayHALTrimLF,        8, 7 },
   { "Beta",   BETA,  displayHALTrimLF,        8, 7 },
   { "Gamma",  GAMMA, displayHALTrimLF,        8, 7 },
-  { "[Save]", LEGLF, menuDisplayHALTrimSave,  8, 7 },  //33
+  { "[Save]", LEGLF, menuDisplayHALTrimSave,  8, 7 },  //34
 
   { "Alpha",  ALPHA, displayHALTrimRF,        9, 7 },
   { "Beta",   BETA,  displayHALTrimRF,        9, 7 },
   { "Gamma",  GAMMA, displayHALTrimRF,        9, 7 },
-  { "[Save]", LEGRF, menuDisplayHALTrimSave,  9, 7 },  //37
+  { "[Save]", LEGRF, menuDisplayHALTrimSave,  9, 7 },  //38
 
   { "Alpha",  ALPHA, displayHALTrimLH,       10, 7 },
   { "Beta",   BETA,  displayHALTrimLH,       10, 7 },
   { "Gamma",  GAMMA, displayHALTrimLH,       10, 7 },
-  { "[Save]", LEGLH, menuDisplayHALTrimSave, 10, 7 },  //41
+  { "[Save]", LEGLH, menuDisplayHALTrimSave, 10, 7 },  //42
 
   { "Alpha",  ALPHA, displayHALTrimRH,       11, 7 },
   { "Beta",   BETA,  displayHALTrimRH,       11, 7 },
   { "Gamma",  GAMMA, displayHALTrimRH,       11, 7 },
-  { "[Save]", LEGRH, menuDisplayHALTrimSave, 11, 7 },  //45
+  { "[Save]", LEGRH, menuDisplayHALTrimSave, 11, 7 },  //46
 
   { "Connect to", 14, menuSubMenu, 12, 1 },
   { "AP info",     0, WiFiInfo,    12, 1 },
-  { "Mode",       13, menuSubMenu, 12, 1 },  //48
+  { "Mode",       13, menuSubMenu, 12, 1 },  //49
 
   { "AP",      AP_MODE, menuWiFiSetMode, 13, 12},
-  { "Client",        1, menuWiFiSetMode, 13, 12},  //50
+  { "Client",        1, menuWiFiSetMode, 13, 12},  //51
 
   { "AP 1", 1, menuWiFiSetMode, 14, 12},
   { "AP 2", 2, menuWiFiSetMode, 14, 12},
   { "AP 3", 3, menuWiFiSetMode, 14, 12},
-  { "AP 4", 4, menuWiFiSetMode, 14, 12} //54
+  { "AP 4", 4, menuWiFiSetMode, 14, 12} //55
 
 };
 

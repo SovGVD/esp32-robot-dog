@@ -1,6 +1,20 @@
 double displayHALMovement = 1;  // mm
 double displayHALRotation = M_PI/180;
 
+void displayHALVector(int id) {
+  display.print("X   :");
+  display.println(vector.x, 4);
+
+  display.print("Y   :");
+  display.println(vector.y, 4);
+
+  display.print("Z   :");
+  display.println(vector.z, 4);
+
+  display.print("AngZ:");
+  display.println(vector.angZ, 4);
+
+}
 
 void displayHALButtonsBody(int axis) {
   // TODO  pitch/roll/yaw

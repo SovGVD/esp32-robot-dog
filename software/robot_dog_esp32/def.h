@@ -50,3 +50,11 @@
 
 /* Debug (SLOW!!!)*/
 //#define DEBUG_HAL_LEG
+
+
+typedef struct {
+  double x;
+  double y;
+  double z;
+  double angZ;
+} moveVector;
