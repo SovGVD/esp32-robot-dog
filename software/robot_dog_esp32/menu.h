@@ -1,6 +1,3 @@
-
-/* -------------------- */
-
 typedef void (*menuItemFunction)(int);
 
 const typedef struct menuItem_t {

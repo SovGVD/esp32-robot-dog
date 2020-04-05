@@ -3,21 +3,18 @@ double displayHALRotation = M_PI/180;
 
 void displayHALVector(int id) {
   if(FS_FAIL) displayHighlightBegin();
-  display.print("X   :");
-  display.println(vector.x, 4);
+  display.print("X  :");
+  display.println(vector.move.x, 4);
 
-  display.print("Y   :");
-  display.println(vector.y, 4);
+  display.print("Y  :");
+  display.println(vector.move.y, 4);
 
-  display.print("Z   :");
-  display.println(vector.z, 4);
+  display.print("Z  :");
+  display.println(vector.move.z, 4);
 
-  display.print("AngZ:");
-  display.println(vector.angZ, 4);
+  display.print("YAW:");
+  display.println(vector.rotate.yaw, 4);
   displayHighlightEnd();
-  
-  display.print("FS  :");
-  display.println(FS_WS_count);
 
 }
 

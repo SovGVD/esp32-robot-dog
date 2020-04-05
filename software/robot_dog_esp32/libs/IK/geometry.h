@@ -21,5 +21,11 @@ typedef struct {
 	angle orientation;
 } figure;
 
+//move
+typedef struct {
+	point move;
+	angle rotate;
+} moveVector;
+
 
 #endif

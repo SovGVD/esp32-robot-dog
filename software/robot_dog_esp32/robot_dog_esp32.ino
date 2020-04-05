@@ -9,6 +9,8 @@
 
 #include <Wire.h>
 #include "menu.h"
+#include "gait.h"
+#include "libs/transition/transition.h"
 #include "libs/IK/geometry.h"
 #include "libs/IK/leg.h"
 #include "libs/IK/IK.h"
@@ -119,7 +121,10 @@ AsyncWebServer server(80);
 AsyncWebSocket ws("/ws");
 
 //Move
-moveVector vector = {0,0,0,0};
+moveVector vector = {
+  {0,0,0},
+  {0,0,0}
+};
 
 //Failsafe
 bool FS_FAIL = false;
@@ -145,10 +150,11 @@ void loop()
 
   updateFailsafe();
   updateIMU();
+  updateGait();
   updateHAL();
   doHAL();
 
-  updateWiFi();
+  //updateWiFi();
   buttonsUpdate();
   displayMenu();
   displayMenuActivity();
