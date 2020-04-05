@@ -74,6 +74,7 @@ class transition
 	public:
 		transition();
 		void set(transitionParameters param);
+		double calcProgress(transitionPoint point1);
 		transitionParameters get(double progress);
 	private:
 		transitionParameters _param;

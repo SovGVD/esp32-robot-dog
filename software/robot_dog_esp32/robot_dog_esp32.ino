@@ -23,8 +23,10 @@
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 
-uint32_t currentTime;
-uint32_t loopTime;
+unsigned long currentTime;
+unsigned long previousTime;
+unsigned long loopTime;
+
 bool disableHAL = false;
 
 // buttons
@@ -145,25 +147,27 @@ void setup()
 
 void loop()
 {
-  // TODO stable cycle, tune FS after that
   currentTime = micros();
-
-  updateFailsafe();
-  updateIMU();
-  updateGait();
-  updateHAL();
-  doHAL();
-
-  //updateWiFi();
-  buttonsUpdate();
-  displayMenu();
-  displayMenuActivity();
-  buttonsReset();
-
-  displayPing();
-  FS_WS_count++;
-  loopTime = micros() - currentTime;  // i want to know full loop time, and yes it will be previous value in displayPing
-
+  if (currentTime - previousTime >= LOOP_TIME) {
+    previousTime = currentTime;
+  
+    updateFailsafe();
+    updateIMU();
+    updateGait();
+    updateHAL();
+    doHAL();
+  
+    //updateWiFi();
+    buttonsUpdate();
+    displayMenu();
+    displayMenuActivity();
+    buttonsReset();
+  
+    displayPing();
+    FS_WS_count++;
+  
+    loopTime = micros() - currentTime;  // i want to know full loop time, and yes it will be previous value in displayPing
+  }
 }
 
 /**

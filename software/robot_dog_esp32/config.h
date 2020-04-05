@@ -2,6 +2,9 @@
  * Configuration file
  */
 
+/* main loop */
+#define LOOP_TIME 50000   // microseconds
+
 // Serial
 #define SERIAL_BAUD 115200 
 
@@ -65,4 +68,4 @@
 #define LEG_TRIM_LIMIT  0.24   // See settingsUint8ToDouble()
 
 //Fais safe
-#define FS_WS_THR 15
+#define FS_WS_THR 20  // 1 second = FS_WS_THR*LOOP_TIME

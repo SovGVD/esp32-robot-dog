@@ -27,6 +27,12 @@ void transition::set(transitionParameters param)
 	k3 = getK(point2, _param.targetValue);
 }
 
+double transition::calcProgress(transitionPoint point1)
+{
+	double givenLength = point1.x - _param.initialValue.x;
+	return givenLength/progressLength;
+}
+
 /**
  * progress [0,1];
  */
