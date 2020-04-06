@@ -11,7 +11,7 @@
  * transition of the leg is the set on two parabolic (TODO) functions and line on progress=[0,1];
  * at that moment I will use just a line
  * 
- * 
+ *  Z
  *  ^
  *  |
  *  |
@@ -22,22 +22,31 @@
  *  |  /    .          .    \
  *  | /     .          .     \
  *  |/      .          .      \
- * 0+-------*----------*-------*----> X (progress)
+ * 0+-------*----------*-------*----> XY (progress)
  *  0      0.2        0.8      1
  *
  *
  *
  *
- *   x - x1    y - y1
- *  ------- = -------
- *  x2 - x1   y2 - y1
+ *   x - x1    y - y1    z - z1
+ *  ------- = ------- = -------
+ *  x2 - x1   y2 - y1   z2 - z1
  *
- * y = k*(x - x1) + y1;
+ *  {
+ *    x = t*ax + x1;
+ *        ax = x2 - x1;
  *
- *     y2 - y1
- * k = -------
- *     x2 - x1
+ *    y = t*(y2 - y1) + y1;
+ *        ay = y2 - y1;
  *
+ *    z = t*(z2 - z1) + z1;
+ *        az = z2 - z1;
+ *
+ *    t = [0,1];
+ *  }
+ *
+ *
+ *  Z
  *  ^
  *  |
  *  |
@@ -48,24 +57,32 @@
  *  |  /  .         .  \
  *  | /k1 .   k2    . k3\
  *  |/    .         .    \ targetValue
- * 0*-----|---------|-----*----> X (progress)
+ * 0*-----|---------|-----*----> XY (progress)
  *  0    0.2        0.8    1
  * initialValue
+ *
+ * (yes, 0XY != 0Y, just as a sketch)
+ * initialValue
+ *  *-----|---------|-----*--->Y
+ *  |\_   .         .
+ *  |   \ _         .
+ *  |     *\ _      .
+ *  |    0.2  \ _   .      progressLength
+ *  |            \ _.     .
+ *  |               * _  .
+ *  |             0.8  \ _
+ *  v                     *
+ * X                       1
  */
 #ifndef transition_h
 #define transition_h
 
-#define TRANSITION_PROGRESS_STEP1 0.2;
-#define TRANSITION_PROGRESS_STEP2 0.8;
+#define TRANSITION_PROGRESS_STEP1 0.2
+#define TRANSITION_PROGRESS_STEP2 0.8
 
 typedef struct {
-	double x;
-	double y;
-} transitionPoint;
-
-typedef struct {
-	transitionPoint initialValue;
-	transitionPoint targetValue;
+	point initialValue;
+	point targetValue;
 	double offTheGround;
 } transitionParameters;
 
@@ -74,17 +91,17 @@ class transition
 	public:
 		transition();
 		void set(transitionParameters param);
-		double calcProgress(transitionPoint point1);
-		transitionParameters get(double progress);
+		point get(double progress);
 	private:
 		transitionParameters _param;
-		transitionPoint point1;
-		transitionPoint point2;
-		double getK(transitionPoint point1, transitionPoint point2);
-		double progressLength;
-		double k1;
-		double k2;
-		double k3;
+		point  p;
+		double stepProgress;
+		double ax;
+		double ay;
+		double az;
+		double z;
+		double z1; // height off the ground on step1
+		double z2; // height off the ground on step2
 };
 
 #endif

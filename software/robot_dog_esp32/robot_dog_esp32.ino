@@ -10,11 +10,14 @@
 #include <Wire.h>
 #include "menu.h"
 #include "libs/IK/geometry.h"
+
 #include "libs/IK/leg.h"
 #include "libs/IK/IK.h"
 #include "libs/IK/IK.cpp"
+
 #include "libs/gait/gait.h"
 #include "libs/gait/gait.cpp"
+
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include <Adafruit_PWMServoDriver.h>

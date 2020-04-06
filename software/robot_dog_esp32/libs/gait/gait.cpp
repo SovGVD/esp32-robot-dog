@@ -20,18 +20,30 @@ void gait::next(uint8_t currentGait) {
 	}
 	
 	if (ticksToStop > 0) {
-		// TODO transition and leg update
 		ticksToStop--;
+		progress = 1 - (float)ticksToStop/(float)ticksMax;
+		
+		_transition.get(progress);
 	}
 }
 
 void gait::start() {
 	ticksToStop = _config->swingDuration/_config->loopTime;
-	Serial.print("Start leg ");
-	Serial.print(_leg->id.id);
-	Serial.print(" ");
-	Serial.print(ticksToStop);
-	Serial.println();
-
-	// TODO calc points for transition
+	ticksMax    = ticksToStop;
+	
+	// TODO, this should be planned points
+	tParams = {
+		{
+			_leg->defaultFoot.x,
+			_leg->defaultFoot.y,
+			_leg->defaultFoot.z
+		},
+		{
+			_leg->defaultFoot.x,
+			_leg->defaultFoot.y,
+			_leg->defaultFoot.z
+		},
+		_config->offTheGround
+	};
+	_transition.set(tParams);
 }

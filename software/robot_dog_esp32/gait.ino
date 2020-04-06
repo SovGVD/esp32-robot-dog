@@ -35,16 +35,14 @@ void initGait() {
 }
 
 void updateGait() {
+  ticksToNextGaitItem--;
 
-  // code
   gaitLegLF.next(currentGait);
   gaitLegRF.next(currentGait);
   gaitLegLH.next(currentGait);
   gaitLegRH.next(currentGait);
-  ticksToNextGaitItem--;
-  if (ticksToNextGaitItem > 0) {
-    // ???
-  } else {
+
+  if (ticksToNextGaitItem <= 0) {
     ticksToNextGaitItem = ticksPerGaitItem;
     currentGait++;
     if (currentGait >= GAIT_CONFIG.sequenceLength) currentGait=0;

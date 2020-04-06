@@ -15,51 +15,45 @@ transition::transition()
 void transition::set(transitionParameters param)
 {
 	_param = param;
-	progressLength = _param.targetValue.x - _param.initialValue.x;
-	point1.x = _param.initialValue.x + TRANSITION_PROGRESS_STEP1*progressLength;
-	point1.y = _param.initialValue.y + offTheGround;
+	ax = _param.targetValue.x - _param.initialValue.x;
+	ay = _param.targetValue.y - _param.initialValue.y;
 	
-	point2.x = _param.targetValue.x + TRANSITION_PROGRESS_STEP2*progressLength;
-	point1.y = _param.targetValue.y + offTheGround;
-	
-	k1 = getK(_param.initialValue, point1);
-	k2 = getK(point1, point2);
-	k3 = getK(point2, _param.targetValue);
+	z1 = _param.initialValue.z + _param.offTheGround;
+	z2 = _param.targetValue.z  + _param.offTheGround;
 }
 
-double transition::calcProgress(transitionPoint point1)
-{
-	double givenLength = point1.x - _param.initialValue.x;
-	return givenLength/progressLength;
-}
 
 /**
  * progress [0,1];
  */
-transitionPoint transition::get(double progress)
+point transition::get(double progress)
 {
-	double x = progressLength*progress;
-	double k = 0;
-	double x1 = 0;
-	double y1 = 0;
-	if (progress <= TRANSITION_PROGRESS_STEP1) {
-		k = k1;
-		x1 = _param.initialValue.x;
-		y1 = _param.initialValue.y;
-	} else if (progress >= TRANSITION_PROGRESS_STEP2) {
-		k = k2;
-		x1 = _param.point1.x;
-		y1 = _param.point1.y;
-	} else {
-		k = k3;
-		x1 = _param.point2.x;
-		y1 = _param.point2.y;
-	}
+	p.x = progress*ax + _param.initialValue.x;
+	p.y = progress*ay + _param.initialValue.y;
 	
-	return k*(x - x1) + y1;
-}
-
-double transition::getK(transitionPoint point1, transitionPoint point2)
-{
-	return (point2.y - point1.y) / (point2.x - point1.x);
+	if (progress <= TRANSITION_PROGRESS_STEP1) {
+		stepProgress = progress/TRANSITION_PROGRESS_STEP1;
+		az = z1 - _param.initialValue.z;
+		z  = _param.initialValue.z;
+		
+	} else if (progress <= TRANSITION_PROGRESS_STEP2) {
+		stepProgress = (progress - TRANSITION_PROGRESS_STEP1)/(TRANSITION_PROGRESS_STEP2 - TRANSITION_PROGRESS_STEP1);
+		az = z2 - z1;
+		z  = z1;
+		
+	} else {
+		stepProgress = (progress - TRANSITION_PROGRESS_STEP2)/(1 - TRANSITION_PROGRESS_STEP2);
+		az = _param.targetValue.z - z2;
+		z  = z2;
+		
+	}
+	p.z = stepProgress*az + z;
+	
+	//Serial.print(progress*100);
+	//Serial.print(" ");
+	//Serial.print(stepProgress*100);
+	//Serial.print(" ");
+	//Serial.println(p.z);
+	
+	return p;
 }
