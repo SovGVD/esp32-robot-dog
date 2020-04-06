@@ -47,10 +47,5 @@
 /* WiFi */
 #define AP_MODE 0
 
-/* Gait */
-#define IGNORE 0 // Leg ignored
-#define STANCE 1 // Leg on ground
-#define SWING  2 // Leg off ground
-
 /* Debug (SLOW!!!)*/
 //#define DEBUG_HAL_LEG

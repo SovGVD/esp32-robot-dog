@@ -9,12 +9,12 @@
 
 #include <Wire.h>
 #include "menu.h"
-#include "gait.h"
-#include "libs/transition/transition.h"
 #include "libs/IK/geometry.h"
 #include "libs/IK/leg.h"
 #include "libs/IK/IK.h"
 #include "libs/IK/IK.cpp"
+#include "libs/gait/gait.h"
+#include "libs/gait/gait.cpp"
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include <Adafruit_PWMServoDriver.h>
@@ -44,6 +44,7 @@ leg legs[LEG_NUM] = {
   {
     {LEGLF, "LF"},
     {-LEG_BODY_X, LEG_BODY_Y, LEG_BODY_Z},
+    {-LEG_POINT_X, LEG_POINT_Y, -LEG_POINT_Z},
     {LEG_SIZE_L1, LEG_SIZE_L2, LEG_SIZE_L3},
     {LEG_ANGLE_ALPHA_MIN, LEG_ANGLE_BETA_MIN, LEG_ANGLE_GAMMA_MIN},
     {LEG_ANGLE_ALPHA_MAX, LEG_ANGLE_BETA_MAX, LEG_ANGLE_GAMMA_MAX},
@@ -61,6 +62,7 @@ leg legs[LEG_NUM] = {
   {
     {LEGRF, "RF"},
     {LEG_BODY_X, LEG_BODY_Y, LEG_BODY_Z},
+    {LEG_POINT_X, LEG_POINT_Y, -LEG_POINT_Z},
     {LEG_SIZE_L1, LEG_SIZE_L2, LEG_SIZE_L3},
     {LEG_ANGLE_ALPHA_MIN, LEG_ANGLE_BETA_MIN, LEG_ANGLE_GAMMA_MIN},
     {LEG_ANGLE_ALPHA_MAX, LEG_ANGLE_BETA_MAX, LEG_ANGLE_GAMMA_MAX},
@@ -78,6 +80,7 @@ leg legs[LEG_NUM] = {
   {
     {LEGLH, "LH"},
     {-LEG_BODY_X, -LEG_BODY_Y, LEG_BODY_Z},
+    {-LEG_POINT_X, -LEG_POINT_Y, -LEG_POINT_Z},
     {LEG_SIZE_L1, LEG_SIZE_L2, LEG_SIZE_L3},
     {LEG_ANGLE_ALPHA_MIN, LEG_ANGLE_BETA_MIN, LEG_ANGLE_GAMMA_MIN},
     {LEG_ANGLE_ALPHA_MAX, LEG_ANGLE_BETA_MAX, LEG_ANGLE_GAMMA_MAX},
@@ -95,6 +98,7 @@ leg legs[LEG_NUM] = {
   {
     {LEGRH, "RH"},
     {LEG_BODY_X, -LEG_BODY_Y, LEG_BODY_Z},
+    {LEG_POINT_X, -LEG_POINT_Y, -LEG_POINT_Z},
     {LEG_SIZE_L1, LEG_SIZE_L2, LEG_SIZE_L3},
     {LEG_ANGLE_ALPHA_MIN, LEG_ANGLE_BETA_MIN, LEG_ANGLE_GAMMA_MIN},
     {LEG_ANGLE_ALPHA_MAX, LEG_ANGLE_BETA_MAX, LEG_ANGLE_GAMMA_MAX},
@@ -132,6 +136,8 @@ moveVector vector = {
 bool FS_FAIL = false;
 uint8_t FS_WS_count = 0;
 
+
+
 void setup()
 {
   Serial.begin(SERIAL_BAUD);
@@ -141,13 +147,14 @@ void setup()
   initMenu();
   initIMU();
   initHAL();
+  initGait();
   initWiFi();
   initWebServer();
 }
 
 void loop()
 {
-  currentTime = micros();
+  currentTime = millis();
   if (currentTime - previousTime >= LOOP_TIME) {
     previousTime = currentTime;
   
@@ -166,7 +173,7 @@ void loop()
     displayPing();
     FS_WS_count++;
   
-    loopTime = micros() - currentTime;  // i want to know full loop time, and yes it will be previous value in displayPing
+    loopTime = millis() - currentTime;  // i want to know full loop time, and yes it will be previous value in displayPing
   }
 }
 

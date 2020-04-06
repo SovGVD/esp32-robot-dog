@@ -3,7 +3,7 @@
  */
 
 /* main loop */
-#define LOOP_TIME 50000   // microseconds
+#define LOOP_TIME 50   // milliseconds
 
 // Serial
 #define SERIAL_BAUD 115200 
