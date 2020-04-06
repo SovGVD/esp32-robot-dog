@@ -38,7 +38,7 @@ bool BUTTON_STATE[4]          = { false, false, false, false };
 
 // HAL
 figure body = {
-  {  0,  0,  0},
+  {  0, 15,  0},  // 15 mm to balance
   {  0,  0,  0}
 };
 
@@ -112,7 +112,7 @@ leg legs[LEG_NUM] = {
     },
     {LEG_POINT_X, -LEG_POINT_Y, -LEG_POINT_Z},
     {LEG_ANGLE_ALPHA, LEG_ANGLE_BETA, LEG_ANGLE_GAMMA},
-    {false, true, false, true, false, false},
+    {false, true, false, true, false, true},
     {true, 36, 2000}
   }
 };

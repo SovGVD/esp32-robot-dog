@@ -24,6 +24,7 @@ void gait::next(uint8_t currentGait) {
 		progress = 1 - (float)ticksToStop/(float)ticksMax;
 		
 		_transition.get(progress);
+		//_leg->foot = _transition.get(progress);
 	}
 }
 

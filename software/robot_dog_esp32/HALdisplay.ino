@@ -119,7 +119,7 @@ void displayHALAngles() {
   }
 }
 
-void displayToggleHAL(int toggle) {
+void displayDisableHAL(int toggle) {
   disableHAL = toggle == 1?true:false;
   displayHALStatus();
 }

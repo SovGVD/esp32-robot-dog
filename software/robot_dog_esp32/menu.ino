@@ -23,8 +23,8 @@ const menuItem MENU_ITEMS[MENU_ITEMS_NUM] = {
   { "Body",    6, menuSubMenu,       5, 2 },
   { "Legs",    7, menuSubMenu,       5, 2 },
   { "Vector",  0, displayHALVector,  5, 2 },
-  { "Enable",  1, displayToggleHAL,  5, 2 },
-  { "Disable", 0, displayToggleHAL,  5, 2 },  //19
+  { "Enable",  0, displayDisableHAL, 5, 2 },
+  { "Disable", 1, displayDisableHAL, 5, 2 },  //19
 
   { "P.MoveX (R/L)",  XAXIS, displayHALMoveBodyPosition, 6, 5 },
   { "P.MoveY (F/B)",  YAXIS, displayHALMoveBodyPosition, 6, 5 },
