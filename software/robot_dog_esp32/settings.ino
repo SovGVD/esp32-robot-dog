@@ -86,8 +86,22 @@ void settingsLoad() {
 
 // leg trim values
 void settingsLoadTrim() {
+  //0 leg trim {-0.05, -0.15,  0.20}
+  //1 leg trim { 0.12, -0.10, -0.18}
+  //2 leg trim {-0.02, -0.21, -0.06}
+  //3 leg trim { 0.04, -0.12, -0.06}
+
+  Serial.println();
   for (int i = 0; i < LEG_NUM; i++) {
     legs[i].hal.trim = settingsLoadTrimLeg(legs[i]);
+    Serial.print(i);
+    Serial.print(" leg trim {");
+    Serial.print(legs[i].hal.trim.alpha);
+    Serial.print(", ");
+    Serial.print(legs[i].hal.trim.beta);
+    Serial.print(", ");
+    Serial.print(legs[i].hal.trim.gamma);
+    Serial.println("}");
   }
 }
 
