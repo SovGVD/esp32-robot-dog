@@ -1,14 +1,11 @@
 void initWiFi() {
-  display.print(" WiFi");
-  display.display();
+  Serial.print("WiFi");
   WiFi.onEvent(WiFiEvent);
   if (WiFiMode == AP_MODE) {
-    display.print("_AP ");
-    display.display();
+    Serial.println("_AP");
     WiFiSetMode(AP_MODE);
   } else {
-    display.print("_CLIENT ");
-    display.display();
+    Serial.println("_CLIENT");
     WiFiSetMode(WiFiMode);
   }
 }

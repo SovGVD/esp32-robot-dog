@@ -8,12 +8,13 @@ bool testAngleWay = true;
 
 void initServo()
 {
-  display.print(" Servo ");
-  display.display();
+  Serial.print("Servo ");
   
   pwm.begin();
   pwm.setOscillatorFrequency(27000000);  // The int.osc. is closer to 27MHz
   pwm.setPWMFreq(SERVO_FREQ);  // This is the maximum PWM frequency of servo
+
+  Serial.println();
 }
 
 
@@ -52,9 +53,9 @@ void servoTest(int id) {
 void setServoToMiddle(int id)
 {
   for (int i = 0; i < LEG_NUM; i++) {
-    legs[i].angle.alpha = M_PI/2;
-    legs[i].angle.beta  = M_PI/2;
-    legs[i].angle.gamma = M_PI/2;
+    legs[i].angle.alpha = M_PI_2;
+    legs[i].angle.beta  = M_PI_2;
+    legs[i].angle.gamma = M_PI_2;
   }
   menuBack();
 }

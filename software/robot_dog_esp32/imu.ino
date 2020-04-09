@@ -8,21 +8,18 @@ float IMU_DATA[3] = {0, 0, 0};
 
 void initIMU()
 {
-  display.print(" IMU ");
-  display.display();
+  Serial.print("IMU ");
   mpu.setup();
+  Serial.println();
 }
 
 void calibrateIMU(int id)
 {
   display.println("Calibrating ACC and GYRO in 5 seconds. Put device on flat leveled surface.");
-  display.display();
   delay(5000);
   display.print("Calibration...");
-  display.display();
   mpu.calibrateAccelGyro();
   display.println("Done.");
-  display.display();
   delay(3000);
   menuBack();
 }

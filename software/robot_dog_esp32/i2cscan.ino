@@ -11,6 +11,16 @@ void displayI2CScan(int id)
       display.print ("), ");
     }
   }
-    
-  display.display();
+  display.println("|");
+  for (byte i = 8; i < 120; i++)
+  {
+    WireServices.beginTransmission (i);
+    if (WireServices.endTransmission () == 0)
+    {
+      display.print (i, DEC);
+      display.print (" (0x");
+      display.print (i, HEX);
+      display.print ("), ");
+    }
+  }
 }

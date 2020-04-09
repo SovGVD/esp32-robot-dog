@@ -3,6 +3,8 @@ bool DISPLAY_PING = true;
 
 void initDisplay()
 {
+  Serial.print("Display ");
+
   if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
     Serial.println(F("SSD1306 allocation failed"));
     return;
@@ -14,9 +16,7 @@ void initDisplay()
   display.setTextColor(SSD1306_WHITE); // Draw white text
   display.setCursor(0, 0);     // Start at top-left corner
   display.cp437(true);         // Use full 256 char 'Code Page 437' font
-
-  display.print(" Display ");
-  display.display();
+  Serial.println();
 }
 
 void displayReset() {
@@ -46,5 +46,9 @@ void displayPing()
 
   display.setCursor(88, 55);
   display.print(loopTime);
+  //display.print("/");
+  //display.print(LOOP_TIME);
+  display.print(" ");
+  display.print(ticksPerGaitItem);
   display.display();
 }

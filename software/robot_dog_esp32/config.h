@@ -3,7 +3,7 @@
  */
 
 /* main loop */
-#define LOOP_TIME 50   // milliseconds
+#define LOOP_TIME 20   // milliseconds
 
 // Serial
 #define SERIAL_BAUD 115200 
@@ -25,6 +25,8 @@
 #define SCREEN_TYPE            OLED_SD1306_128_64
 #define SCREEN_WIDTH           128 // OLED display width, in pixels
 #define SCREEN_HEIGHT          64 // OLED display height, in pixels
+#define SCREEN_SDA             17
+#define SCREEN_SCL             16
 
 
 // Buttons config
@@ -42,9 +44,9 @@
 #define LEG_SIZE_L3  186.0
 
 // default angles for init state
-#define LEG_ANGLE_ALPHA M_PI/2
-#define LEG_ANGLE_BETA  M_PI/2
-#define LEG_ANGLE_GAMMA M_PI/2
+#define LEG_ANGLE_ALPHA M_PI_2
+#define LEG_ANGLE_BETA  M_PI_2
+#define LEG_ANGLE_GAMMA M_PI_2
 
 // angle limits
 #define LEG_ANGLE_ALPHA_MIN 0

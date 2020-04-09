@@ -1,7 +1,7 @@
 void initWebServer() {
-  display.print(" WebServer ");
+  Serial.print("WebServer ");
   initWebServerRoutes();
-  display.display();
+  Serial.println();
 }
 
 void initWebServerRoutes() {  

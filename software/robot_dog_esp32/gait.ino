@@ -1,7 +1,3 @@
-uint16_t ticksPerGaitItem    = 0;
-uint16_t ticksToNextGaitItem = 0;
-uint8_t currentGait          = 0;
-
 // Gait
 gaitConfig GAIT_CONFIG = {
 //  {

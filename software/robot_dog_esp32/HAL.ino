@@ -1,9 +1,9 @@
 void initHAL()
 {
-  display.print(" HAL ");
+  Serial.print("HAL ");
   initServo();
   initLegs();
-  display.display();
+  Serial.println();
 }
 
 void initLegs() {
@@ -87,7 +87,7 @@ void setLegPWM(leg &_leg)
 double getHALAngle(double angle, double trimAngle, double gearRatio, bool inverse) {
   angle = angle + trimAngle;
   if (gearRatio != 1) {
-    angle = (angle - M_PI/2) * gearRatio + M_PI/2;  // map around middle of servo (90 deg, PI/2)
+    angle = (angle - M_PI_2) * gearRatio + M_PI_2;  // map around middle of servo (90 deg, PI/2)
   }
   if (inverse) angle = M_PI - angle;
   return angle;

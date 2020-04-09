@@ -23,7 +23,11 @@
 #include <Adafruit_PWMServoDriver.h>
 #include "libs/MPU9250/MPU9250.h"
 
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+TwoWire WireServices = TwoWire(1);
+TaskHandle_t ServicesTask;
+
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &WireServices, OLED_RESET);
+
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 
 unsigned long currentTime;
@@ -35,6 +39,12 @@ bool disableHAL = false;
 // buttons
 unsigned int BUTTON_VALUES[4] = {  1900,  3000,  2300,  1500 };
 bool BUTTON_STATE[4]          = { false, false, false, false };
+
+// Gait
+uint16_t ticksPerGaitItem    = 0;
+uint16_t ticksToNextGaitItem = 0;
+uint8_t  currentGait         = 0;
+
 
 // HAL
 figure body = {
@@ -144,8 +154,18 @@ uint8_t FS_WS_count = 0;
 void setup()
 {
   Serial.begin(SERIAL_BAUD);
+  Wire.begin();
 
-  initDisplay();
+  xTaskCreatePinnedToCore(
+    servicesLoop,   /* Task function. */
+    "Services",     /* name of task. */
+    10000,       /* Stack size of task */
+    NULL,        /* parameter of the task */
+    1,           /* priority of the task */
+    &ServicesTask,      /* Task handle to keep track of created task */
+    0);          /* pin task to core 0 */
+    delay(500);
+
   initSettings();
   initMenu();
   initIMU();
@@ -155,6 +175,10 @@ void setup()
   initWebServer();
 }
 
+/**
+ * Main loop for all major things
+ * Core 1
+ */
 void loop()
 {
   currentTime = millis();
@@ -168,20 +192,33 @@ void loop()
     doHAL();
   
     //updateWiFi();
+  
+    FS_WS_count++;
+  
+    loopTime = millis() - currentTime;
+  }
+}
+
+/**
+ * Loop for service things, like display
+ * Core 0
+ */
+void servicesLoop(void * pvParameters) {
+  WireServices.begin(SCREEN_SDA, SCREEN_SCL);
+  initDisplay();
+  
+  for(;;){
     buttonsUpdate();
     displayMenu();
     displayMenuActivity();
     buttonsReset();
-  
+
     displayPing();
-    FS_WS_count++;
-  
-    loopTime = millis() - currentTime;  // i want to know full loop time, and yes it will be previous value in displayPing
+    delay(200);
   }
 }
 
 /**
  * TODO
- *  - move display to another i2c and thread/task, sending data to display cost too much time
- *  - define M_PI/2
+ *  - calculate center of mass and use it for balance
  */

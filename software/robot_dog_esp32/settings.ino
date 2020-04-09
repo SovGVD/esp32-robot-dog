@@ -18,17 +18,19 @@
 
 // TODO
 // - check EEPROM data structure version
+// - print setting to Serial
 
 
 void initSettings() {
-  display.print(" Settings ");
-  display.display();
+  Serial.print("Settings ");
 
   EEPROM.begin(EEPROM_SIZE);
 
   settingsCheck();
 
   settingsLoad();
+
+  Serial.println();
 }
 
 void settingsCheck() {
@@ -39,8 +41,7 @@ void settingsCheck() {
 
 void settingsInitEEPROM() {
   // In some cases that can be moving data from one version to another
-  display.println("Re-init EEPROM");
-  display.display();
+  Serial.println("Re-init EEPROM");
   delay(5000);
   EEPROM.write(0, EEPROM_VERSION);
   EEPROM.write(1, EEPROM_REV);

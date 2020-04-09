@@ -82,7 +82,7 @@ iksolver IK::solve()
 		Serial.println(ikAcos(_leg->size.l1/sqrt(a)),10);
 	#endif
 	
-	angle.beta  = M_PI/2 - ikAcos( (l3p2 - l2p2 - dyz) / (-2 * sqrt(dyz) * _leg->size.l2)) - ikAsin(ly/sqrt(dxz)); 
+	angle.beta  = M_PI_2 - ikAcos( (l3p2 - l2p2 - dyz) / (-2 * sqrt(dyz) * _leg->size.l2)) - ikAsin(ly/sqrt(dxz)); 
 	#ifdef DEBUG_HAL_LEG
 		Serial.print("BETA: ");
 		Serial.println(angle.beta*(180/M_PI), 10);
