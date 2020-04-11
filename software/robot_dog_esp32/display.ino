@@ -44,6 +44,14 @@ void displayPing()
   DISPLAY_PING = !DISPLAY_PING;
   display.drawPixel(127, 63, DISPLAY_PING ? SSD1306_WHITE : SSD1306_BLACK);
 
+  // leg on ground state
+  display.drawPixel(1, 62, SSD1306_WHITE);  // TODO this should show is body in CoM or not
+  display.drawPixel(0, 63, gaitProgress[LEGLF] == 0 ? SSD1306_WHITE : SSD1306_BLACK);
+  display.drawPixel(0, 61, gaitProgress[LEGRF] == 0 ? SSD1306_WHITE : SSD1306_BLACK);
+  display.drawPixel(2, 63, gaitProgress[LEGLH] == 0 ? SSD1306_WHITE : SSD1306_BLACK);
+  display.drawPixel(2, 61, gaitProgress[LEGRH] == 0 ? SSD1306_WHITE : SSD1306_BLACK);
+
+
   display.setCursor(88, 55);
   display.print(loopTime);
   //display.print("/");

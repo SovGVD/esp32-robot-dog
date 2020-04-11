@@ -11,7 +11,10 @@ gait::gait(gaitConfig &config, leg &legObj)
 	_leg    = &legObj;
 }
 
-void gait::next(uint8_t currentGait) {
+/**
+ * Return state if this gait is in progress
+ */
+double gait::next(uint8_t currentGait) {
 	if (_currentGait != currentGait && ticksToStop == 0) {
 		_currentGait = currentGait;
 		if (_config->sequence[_currentGait].leg[_leg->id.id] == SWING) {
@@ -23,9 +26,16 @@ void gait::next(uint8_t currentGait) {
 		ticksToStop--;
 		progress = 1 - (float)ticksToStop/(float)ticksMax;
 		
-		_transition.get(progress);
-		//_leg->foot = _transition.get(progress);
+		_transition.swing(progress);
+		//_leg->foot = _transition.swing(progress);
+		_leg->sensor.onGround = false;
+	} else {
+		progress = 0;
+		// TODO use real sesors and stop gait if leg touch the ground
+		_leg->sensor.onGround = true;
 	}
+	
+	return progress;
 }
 
 void gait::start() {

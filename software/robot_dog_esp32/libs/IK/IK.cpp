@@ -16,6 +16,12 @@ IK::IK(leg &legObj, figure &bodyObj)
 	_body = &bodyObj;
 }
 
+void IK::set(leg &legObj, figure &bodyObj)
+{
+	_leg  = &legObj;
+	_body = &bodyObj;
+}
+
 iksolver IK::solve()
 {
 	legangle angle;
@@ -114,6 +120,7 @@ double IK::normalizeAngleRad(double angleRad)
 }
 
 // this can be update to use table of angles (faster) insted of using trigonometry functions
+// or at least add cache
 double IK::ikAtan2(double x, double y)
 {
 	return normalizeAngleRad(atan2(x, y));

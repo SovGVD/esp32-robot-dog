@@ -17,6 +17,7 @@ void transition::set(transitionParameters param)
 	_param = param;
 	ax = _param.targetValue.x - _param.initialValue.x;
 	ay = _param.targetValue.y - _param.initialValue.y;
+	az = _param.targetValue.z - _param.initialValue.z;
 	
 	z1 = _param.initialValue.z + _param.offTheGround;
 	z2 = _param.targetValue.z  + _param.offTheGround;
@@ -26,7 +27,7 @@ void transition::set(transitionParameters param)
 /**
  * progress [0,1];
  */
-point transition::get(double progress)
+point transition::swing(double progress)
 {
 	p.x = progress*ax + _param.initialValue.x;
 	p.y = progress*ay + _param.initialValue.y;
@@ -55,5 +56,14 @@ point transition::get(double progress)
 	//Serial.print(" ");
 	//Serial.println(p.z);
 	
+	return p;
+}
+
+point transition::linear(double progress)
+{
+	p.x = progress*ax + _param.initialValue.x;
+	p.y = progress*ay + _param.initialValue.y;
+	p.z = progress*az + _param.initialValue.z;
+
 	return p;
 }

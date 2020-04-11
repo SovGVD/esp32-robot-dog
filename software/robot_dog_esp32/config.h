@@ -35,7 +35,6 @@
 
 
 // Robot config
-
 #define LEG_NUM 4
 
 // Size of leg parts in mm

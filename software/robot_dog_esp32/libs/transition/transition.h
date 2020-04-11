@@ -91,7 +91,8 @@ class transition
 	public:
 		transition();
 		void set(transitionParameters param);
-		point get(double progress);
+		point swing(double progress);
+		point linear(double progress);
 	private:
 		transitionParameters _param;
 		point  p;

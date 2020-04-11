@@ -46,6 +46,7 @@
 #ifndef IK_h
 #define IK_h
 
+#include "geometry.h"
 #include "leg.h"
 
 typedef struct {
@@ -57,6 +58,7 @@ class IK
 {
 	public:
 		IK(leg &legObj, figure &bodyObj);
+		void set(leg &legObj, figure &bodyObj);
 		iksolver solve();
 		//point solveByAngle();	// use to init position by initial angles
 		double normalizeAngleRad(double angleRad);

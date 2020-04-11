@@ -21,8 +21,10 @@ void doHAL() {
 }
 
 void readLegsSensors() {
+  // TODO enable if sensors available
+  // TODO don't set to legs, this should be part of gait
   for (int i = 0; i < LEG_NUM; i++) {
-    legs[i].sensor.onGround = analogRead(legs[i].sensor.pin) > legs[i].sensor.threshold;
+    //legs[i].sensor.onGround = analogRead(legs[i].sensor.pin) > legs[i].sensor.threshold;
   }
 }
 

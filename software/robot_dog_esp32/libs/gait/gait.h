@@ -31,7 +31,7 @@ class gait
 {
 	public:
 		gait(gaitConfig &config, leg &legObj);
-		void next(uint8_t currentGait);
+		double next(uint8_t currentGait);
 	private:
 		gaitConfig *_config;
 		leg        *_leg;
