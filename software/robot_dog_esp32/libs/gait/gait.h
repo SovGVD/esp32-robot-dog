@@ -31,7 +31,8 @@ class gait
 {
 	public:
 		gait(gaitConfig &config, leg &legObj);
-		double next(uint8_t currentGait);
+		void start(point from, point to);
+		double next();
 	private:
 		gaitConfig *_config;
 		leg        *_leg;
@@ -43,8 +44,6 @@ class gait
 		uint16_t ticksToStop = 0;
 		uint16_t ticksMax    = 0;
 		uint8_t  _currentGait = 255;
-		
-		void start();
 	
 };
 #endif

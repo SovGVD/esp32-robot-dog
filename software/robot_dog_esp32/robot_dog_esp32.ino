@@ -1,4 +1,12 @@
 #include <math.h>
+
+#include "libs/IK/geometry.h"
+#include "libs/IK/leg.h"
+#include "libs/IK/IK.h"
+#include "libs/planner/planner.h"
+#include "libs/balance/balance.h"
+#include "libs/gait/gait.h"
+
 #include "def.h"
 #include "config.h"
 #include "config_wifi.h"
@@ -9,19 +17,10 @@
 
 #include <Wire.h>
 #include "menu.h"
-#include "libs/IK/geometry.h"
 
-#include "libs/IK/leg.h"
-#include "libs/IK/IK.h"
 #include "libs/IK/IK.cpp"
-
-#include "libs/planner/planner.h"
 #include "libs/planner/planner.cpp"
-
-#include "libs/balance/balance.h"
 #include "libs/balance/balance.cpp"
-
-#include "libs/gait/gait.h"
 #include "libs/gait/gait.cpp"
 
 #include <Adafruit_GFX.h>

@@ -2,6 +2,10 @@
 #define leg_h
 
 #include "geometry.h"
+#define LEGLF 0   // left  front leg
+#define LEGRF 1   // right front leg
+#define LEGLH 2   // left  hind  leg
+#define LEGRH 3   // right hind  leg
 
 // see IK.h
 typedef struct {

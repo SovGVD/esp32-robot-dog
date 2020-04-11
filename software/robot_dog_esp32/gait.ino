@@ -52,18 +52,38 @@ uint8_t getNextGait()
 void updateGait() {
   ticksToNextGaitItem--;
 
-  gaitProgress[LEGLF] = gaitLegLF.next(currentGait);
-  gaitProgress[LEGRF] = gaitLegRF.next(currentGait);
-  gaitProgress[LEGLH] = gaitLegLH.next(currentGait);
-  gaitProgress[LEGRH] = gaitLegRH.next(currentGait);
+  // TODO body linear transition
+
+  gaitProgress[LEGLF] = gaitLegLF.next();
+  gaitProgress[LEGRF] = gaitLegRF.next();
+  gaitProgress[LEGLH] = gaitLegLH.next();
+  gaitProgress[LEGRH] = gaitLegRH.next();
 
 
-// TODO we need predict next position of robot to begin move of CoM at 0.8 progress of current and until 0.2 progress of future gait
+  // TODO we need predict next position of robot to begin move of CoM at 0.8 progress of current and until 0.2 progress of future gait
   //bodyBalance.setBody(bodyBalance.getCenter());
 
   if (ticksToNextGaitItem <= 0) {
     ticksToNextGaitItem = ticksPerGaitItem;
     currentGait++;
     if (currentGait >= GAIT_CONFIG.sequenceLength) currentGait = 0;
+
+    // set future position - this needs to be done on 0.8 progress for CoM and balance transition, that is also should include body linear transition
+    walkPlanner.predictPosition();
+
+    // set new body position - TODO this will not need after body linear transition
+    body = walkPlanner.getBodyPosition();
+
+    // run gait workers
+    for (int i = 0; i < LEG_NUM; i++) {
+      if (GAIT_CONFIG.sequence[currentGait].leg[i] == SWING) {
+        switch(i) {
+          case LEGLF: gaitLegLF.start(legs[i].foot, walkPlanner.getLegPosition(i)); break;
+          case LEGRF: gaitLegRF.start(legs[i].foot, walkPlanner.getLegPosition(i)); break;
+          case LEGLH: gaitLegLH.start(legs[i].foot, walkPlanner.getLegPosition(i)); break;
+          case LEGRH: gaitLegRH.start(legs[i].foot, walkPlanner.getLegPosition(i)); break;
+        }
+      }
+    }
   }
 }

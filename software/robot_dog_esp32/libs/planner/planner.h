@@ -17,6 +17,9 @@ class planner
 {
 	public:
 		planner(moveVector &vector, figure &bodyObj, leg &legLF, leg &legRF, leg &legLH, leg &legRH);
+		void predictPosition(uint8_t steps);
+		figure getBodyPosition();
+		point getLegPosition(uint8_t legId);
 	private:
 		moveVector *_vector;
 		figure     *_body;
@@ -24,6 +27,11 @@ class planner
 		leg        *_legRF;
 		leg        *_legLH;
 		leg        *_legRH;
+		figure     _predictedBody;
+		point      _predictedLegLFfoot;
+		point      _predictedLegRFfoot;
+		point      _predictedLegLHfoot;
+		point      _predictedLegRHfoot;
 };
 
 #endif

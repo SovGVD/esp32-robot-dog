@@ -2,22 +2,6 @@
  * Some usuful defines
  */
 
-#define LEGLF 0   // left  front leg
-#define LEGRF 1   // right front leg
-#define LEGLH 2   // left  hind  leg
-#define LEGRH 3   // right hind  leg
-
-#define ALPHA 0
-#define BETA  1
-#define GAMMA 2
-
-#define XAXIS     0
-#define YAXIS     1
-#define ZAXIS     2
-#define PITCHAXIS 3
-#define ROLLAXIS  4
-#define YAWAXIS   5
-
 #define DISPLAY_DIGITS 1  // Number of digits to display after the decimal point
 
 #define BUTTON_BACK 0

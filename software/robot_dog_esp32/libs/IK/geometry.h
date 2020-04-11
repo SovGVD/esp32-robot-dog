@@ -1,6 +1,17 @@
 #ifndef geometry_h
 #define geometry_h
 
+#define ALPHA 0
+#define BETA  1
+#define GAMMA 2
+
+#define XAXIS     0
+#define YAXIS     1
+#define ZAXIS     2
+#define PITCHAXIS 3
+#define ROLLAXIS  4
+#define YAWAXIS   5
+
 // pount in 3D
 typedef struct {
 	double x;
