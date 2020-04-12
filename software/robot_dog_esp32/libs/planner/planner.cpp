@@ -24,15 +24,15 @@ void planner::predictPosition(uint8_t steps = 1)
 	// TODO normalize angle !!! very important !!!
 	_predictedBody.orientation.pitch = _body->orientation.pitch;
 	_predictedBody.orientation.roll  = _body->orientation.roll;
-	_predictedBody.orientation.yaw   = _body->orientation.yaw + _vector->rotate.yaw * 0.1;	// TODO speed of rotation based on vector
+	_predictedBody.orientation.yaw   = _body->orientation.yaw + rotateInc * _vector->rotate.yaw;
 	
 	
 	double tmpSin = sin(_predictedBody.orientation.yaw);
 	double tmpCos = cos(_predictedBody.orientation.yaw);
 	
 	// TODO use matrix
-	_predictedBody.position.x = _body->position.x + _vector->move.x * tmpCos - _vector->move.y * tmpSin;
-	_predictedBody.position.y = _body->position.y + _vector->move.x * tmpSin + _vector->move.y * tmpCos;
+	_predictedBody.position.x = _body->position.x + moveInc * (_vector->move.x * tmpCos - _vector->move.y * tmpSin);
+	_predictedBody.position.y = _body->position.y + moveInc * (_vector->move.x * tmpSin + _vector->move.y * tmpCos);
 	_predictedBody.position.z = _body->position.z;
 	
 	

@@ -1,19 +1,17 @@
 // Gait
-/*gaitConfig GAIT_CONFIG = {
+gaitConfig GAIT_CONFIG = {
   {
     { SWING,  STANCE, STANCE, SWING  },
     { STANCE, SWING,  SWING,  STANCE }
   },
   2,           // items in sequence
   LOOP_TIME,   // loop time to correclty calculate number of sub moves per gate item
-  20,          // move on 20mm
-  40,          // max move on 40 mm
-  30,          // above the ground on swing, 30mm
+  40,          // above the ground on swing, 40mm
   200,         // swing duration
   200          // sequence items duration
 };
-*/
 
+/*
 gaitConfig GAIT_CONFIG = {
   {
     {SWING,  STANCE, STANCE, STANCE},
@@ -23,13 +21,10 @@ gaitConfig GAIT_CONFIG = {
   },
   4,           // items in sequence
   LOOP_TIME,   // loop time to correclty calculate number of sub moves per gate item
-  20,          // move on 20mm
-  40,          // max move on 40 mm
   30,          // above the ground on swing, 30mm
   2000,         // swing duration
   2000          // sequence items duration
-};
-
+};*/
 
 gait gaitLegLF(GAIT_CONFIG, legs[LEGLF]);
 gait gaitLegRF(GAIT_CONFIG, legs[LEGRF]);
@@ -52,8 +47,9 @@ uint8_t getNextGait()
 void updateGait() {
   ticksToNextGaitItem--;
 
-  // TODO body linear transition
+  gaitItemProgress = 1 - (float)ticksToNextGaitItem/(float)ticksPerGaitItem;
 
+  body.position = bodyTransition.linear(gaitItemProgress);
   gaitProgress[LEGLF] = gaitLegLF.next();
   gaitProgress[LEGRF] = gaitLegRF.next();
   gaitProgress[LEGLH] = gaitLegLH.next();
@@ -71,8 +67,10 @@ void updateGait() {
     // set future position - this needs to be done on 0.8 progress for CoM and balance transition, that is also should include body linear transition
     walkPlanner.predictPosition();
 
-    // set new body position - TODO this will not need after body linear transition
-    body = walkPlanner.getBodyPosition();
+    // body linear transition (TODO, include balance here)
+    bodyTransitionParams.initialValue = body.position;
+    bodyTransitionParams.targetValue  = walkPlanner.getBodyPosition().position;
+    bodyTransition.set(bodyTransitionParams);
 
     // run gait workers
     for (int i = 0; i < LEG_NUM; i++) {

@@ -13,7 +13,7 @@ var axisInvert = {
     x    : false,
     y    : true,
     z    : true,
-    angZ : true,	// not sure
+    angZ : false,
     invert: function (axis) {
 		return axis?-1:1;
 	}

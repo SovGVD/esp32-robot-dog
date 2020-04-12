@@ -77,8 +77,8 @@
 #ifndef transition_h
 #define transition_h
 
-#define TRANSITION_PROGRESS_STEP1 0.2
-#define TRANSITION_PROGRESS_STEP2 0.8
+#define TRANSITION_PROGRESS_STEP1 0.4
+#define TRANSITION_PROGRESS_STEP2 0.4
 
 typedef struct {
 	point initialValue;

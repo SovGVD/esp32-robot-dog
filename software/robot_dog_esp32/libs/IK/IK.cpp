@@ -28,9 +28,9 @@ iksolver IK::solve()
 	iksolver s;
 	
 	// TODO: what can I do with limits?
-	double lx = _leg->foot.x - (_leg->body.x + _body->position.x); if (_leg->inverse.x) { lx = -lx; };
-	double ly = _leg->foot.y - (_leg->body.y + _body->position.y); if (_leg->inverse.y) { ly = -ly; };
-	double lz = _leg->foot.z - (_leg->body.z + _body->position.z); if (_leg->inverse.z) { lz = -lz; };
+	double lx = _leg->foot.x - (_leg->body.x + _body->position.x + bodyBalance.x); if (_leg->inverse.x) { lx = -lx; };
+	double ly = _leg->foot.y - (_leg->body.y + _body->position.y + bodyBalance.y); if (_leg->inverse.y) { ly = -ly; };
+	double lz = _leg->foot.z - (_leg->body.z + _body->position.z + bodyBalance.z); if (_leg->inverse.z) { lz = -lz; };
 	#ifdef DEBUG_HAL_LEG
 		Serial.print("LEG BODY: ");
 		Serial.print(_leg->body.x, 10);

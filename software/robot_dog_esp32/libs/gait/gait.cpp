@@ -19,8 +19,8 @@ double gait::next() {
 		ticksToStop--;
 		progress = 1 - (float)ticksToStop/(float)ticksMax;
 		
-		_transition.swing(progress);
-		//_leg->foot = _transition.swing(progress);
+		//_transition.swing(progress);
+		_leg->foot = _transition.swing(progress);
 		_leg->sensor.onGround = false;
 	} else {
 		progress = 0;
@@ -40,5 +40,11 @@ void gait::start(point from, point to) {
 		to,
 		_config->offTheGround
 	};
+	// TODO add somethiong to compare point
+	// TODO YAW did npot work properly with that
+	if (from.x == to.x && from.y == to.y && from.z == to.z) {
+		// don't move if from and to equal
+		ticksToStop = 0;
+	}
 	_transition.set(tParams);
 }

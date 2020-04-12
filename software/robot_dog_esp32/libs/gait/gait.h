@@ -20,8 +20,6 @@ typedef struct gaitConfig_t {
 	const gaitSequence sequence[16];
 	const uint8_t      sequenceLength;
 	const double       loopTime;       // loop time to correclty calculate number of sub moves per gate item, milliseconds
-	double             defaultDelta;   // default full leg move, in mm
-	double             maxDelta;       // maximal full leg move, in mm
 	double             offTheGround;   // in mm
 	double             swingDuration;  // duration of swing in milliseconds (1sec = 1000 millisec, 1sec = 1000000microsec)
 	double             duration;       // duration of gaitSequence item, in milliseconds (1sec = 1000 millisec), should be equal or longer than swingDuration

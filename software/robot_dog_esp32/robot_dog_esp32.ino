@@ -50,7 +50,11 @@ uint16_t ticksPerGaitItem    = 0;
 uint16_t ticksToNextGaitItem = 0;
 uint8_t  currentGait         = 0;
 uint8_t  nextGait            = 0;
+double   gaitItemProgress    = 0;
 double   gaitProgress[]      = {0, 0, 0, 0};
+
+transition bodyTransition;
+transitionParameters bodyTransitionParams = {{0,0,0}, {0,0,0}, 0};
 
 //Move
 moveVector vector = {
