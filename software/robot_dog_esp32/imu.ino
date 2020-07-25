@@ -13,15 +13,15 @@ void initIMU()
   Serial.println();
 }
 
-void calibrateIMU(int id)
+double calibrateIMU(double id)
 {
-  display.println("Calibrating ACC and GYRO in 5 seconds. Put device on flat leveled surface.");
+  Serial.println("Calibrating ACC and GYRO in 5 seconds. Put device on flat leveled surface.");
   delay(5000);
-  display.print("Calibration...");
+  Serial.print("Calibration...");
   mpu.calibrateAccelGyro();
-  display.println("Done.");
-  delay(3000);
-  menuBack();
+  Serial.println("Done.");
+
+  return 1;
 }
 
 void updateIMU()
@@ -36,14 +36,14 @@ void updateIMU()
 
 void displayIMU(int id)
 {
-  display.print("Roll  |X| ");
-  display.println(IMU_DATA[ROLL], DISPLAY_DIGITS);
-  display.print("Pitch |Y| ");
-  display.println(IMU_DATA[PITCH], DISPLAY_DIGITS);
-  display.print("Yaw   |Z| ");
-  display.println(IMU_DATA[YAW], DISPLAY_DIGITS);
-  display.println("   X ^        +---+");
-  display.println("     |        |IMU|");
-  display.println(" Y <-Z        0---+");
+//  display.print("Roll  |X| ");
+//  display.println(IMU_DATA[ROLL], DISPLAY_DIGITS);
+//  display.print("Pitch |Y| ");
+//  display.println(IMU_DATA[PITCH], DISPLAY_DIGITS);
+//  display.print("Yaw   |Z| ");
+//  display.println(IMU_DATA[YAW], DISPLAY_DIGITS);
+//  display.println("   X ^        +---+");
+//  display.println("     |        |IMU|");
+//  display.println(" Y <-Z        0---+");
 
 }

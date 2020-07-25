@@ -41,22 +41,22 @@ void WiFiSetMode(int setWiFiMode) {
 
 void menuWiFiSetMode(int setWiFiMode) {
   WiFiSetMode(setWiFiMode);
-  menuBack();
 }
 
 void updateWiFi() {
   
 }
 
-void WiFiInfo(int info) {
-  display.println("IP");
-  display.println(WiFiIP);
-  display.println("SSID");
-  display.println(wifiSsid[WiFiMode]);
+double WiFiInfo(double info) {
+  cliSerial->print("IP: ");
+  cliSerial->println(WiFiIP);
+  cliSerial->print("SSID: ");
+  cliSerial->println(wifiSsid[WiFiMode]);
     
   if (WiFiMode == AP_MODE) {
-    display.println("Pass");
-    display.println(wifiPass[WiFiMode]);
+    cliSerial->print("Pass: ");
+    cliSerial->println(wifiPass[WiFiMode]);
   }
 
+  return 1;
 }

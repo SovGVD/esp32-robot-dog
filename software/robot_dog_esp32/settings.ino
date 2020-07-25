@@ -96,11 +96,11 @@ void settingsLoadTrim() {
     legs[i].hal.trim = settingsLoadTrimLeg(legs[i]);
     Serial.print(i);
     Serial.print(" leg trim {");
-    Serial.print(legs[i].hal.trim.alpha);
+    Serial.print(radToDeg(legs[i].hal.trim.alpha), CLI_DP);
     Serial.print(", ");
-    Serial.print(legs[i].hal.trim.beta);
+    Serial.print(radToDeg(legs[i].hal.trim.beta),  CLI_DP);
     Serial.print(", ");
-    Serial.print(legs[i].hal.trim.gamma);
+    Serial.print(radToDeg(legs[i].hal.trim.gamma), CLI_DP);
     Serial.println("}");
   }
 }

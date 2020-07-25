@@ -33,14 +33,14 @@ void servoTest(int id) {
     testAngleWay = !testAngleWay;
   }
   
-  display.print("Angle: ");
-  display.println(testAngle, 4);
-
-  display.print("Pulse: ");
-  display.println(angleToPulse(testAngle), 4);
-
-  display.print("Freq:  ");
-  display.println(SERVO_FREQ);
+//  display.print("Angle: ");
+//  display.println(testAngle, 4);
+//
+//  display.print("Pulse: ");
+//  display.println(angleToPulse(testAngle), 4);
+//
+//  display.print("Freq:  ");
+//  display.println(SERVO_FREQ);
 
   for (int i = 0; i < LEG_NUM; i++) {
     legs[i].angle.alpha = testAngle;
@@ -57,7 +57,6 @@ void setServoToMiddle(int id)
     legs[i].angle.beta  = M_PI_2;
     legs[i].angle.gamma = M_PI_2;
   }
-  menuBack();
 }
 
 
