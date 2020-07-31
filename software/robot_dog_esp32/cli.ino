@@ -1,6 +1,6 @@
-#define CLI_MENU_COMMANDS_GET 13
-#define CLI_MENU_COMMANDS_SET 13
-#define CLI_MENU_COMMANDS_RUN 4
+#define CLI_MENU_COMMANDS_GET 27
+#define CLI_MENU_COMMANDS_SET 26
+#define CLI_MENU_COMMANDS_RUN 5
 
 char cliChar;
 bool cliErrorState = false;
@@ -22,7 +22,21 @@ const cliCommand cliCommandsGet[CLI_MENU_COMMANDS_GET] = {
   { "LH_HAL_trim_gamma", cliGetHALTrimLHGamma },
   { "RH_HAL_trim_alpha", cliGetHALTrimRHAlpha },
   { "RH_HAL_trim_beta",  cliGetHALTrimRHBeta  },
-  { "RH_HAL_trim_gamma", cliGetHALTrimRHGamma }
+  { "RH_HAL_trim_gamma", cliGetHALTrimRHGamma },
+  { "HAL",               cliGetHALState       },
+  { "LF_angle_alpha",    cliGetAngleLFAlpha   },
+  { "LF_angle_beta",     cliGetAngleLFBeta    },
+  { "LF_angle_gamma",    cliGetAngleLFGamma   },
+  { "RF_angle_alpha",    cliGetAngleRFAlpha   },
+  { "RF_angle_beta",     cliGetAngleRFBeta    },
+  { "RF_angle_gamma",    cliGetAngleRFGamma   },
+  { "LH_angle_alpha",    cliGetAngleLHAlpha   },
+  { "LH_angle_beta",     cliGetAngleLHBeta    },
+  { "LH_angle_gamma",    cliGetAngleLHGamma   },
+  { "RH_angle_alpha",    cliGetAngleRHAlpha   },
+  { "RH_angle_beta",     cliGetAngleRHBeta    },
+  { "RH_angle_gamma",    cliGetAngleRHGamma   },
+  { "angles",            cliGetAngles         }
 };
 
 const cliCommand cliCommandsSet[CLI_MENU_COMMANDS_SET] = {
@@ -38,14 +52,28 @@ const cliCommand cliCommandsSet[CLI_MENU_COMMANDS_SET] = {
   { "LH_HAL_trim_gamma", cliSetHALTrimLHGamma },
   { "RH_HAL_trim_alpha", cliSetHALTrimRHAlpha },
   { "RH_HAL_trim_beta",  cliSetHALTrimRHBeta  },
-  { "RH_HAL_trim_gamma", cliSetHALTrimRHGamma }
+  { "RH_HAL_trim_gamma", cliSetHALTrimRHGamma },
+  { "HAL",               cliSetHALState       },
+  { "LF_angle_alpha",    cliSetAngleLFAlpha   },
+  { "LF_angle_beta",     cliSetAngleLFBeta    },
+  { "LF_angle_gamma",    cliSetAngleLFGamma   },
+  { "RF_angle_alpha",    cliSetAngleRFAlpha   },
+  { "RF_angle_beta",     cliSetAngleRFBeta    },
+  { "RF_angle_gamma",    cliSetAngleRFGamma   },
+  { "LH_angle_alpha",    cliSetAngleLHAlpha   },
+  { "LH_angle_beta",     cliSetAngleLHBeta    },
+  { "LH_angle_gamma",    cliSetAngleLHGamma   },
+  { "RH_angle_alpha",    cliSetAngleRHAlpha   },
+  { "RH_angle_beta",     cliSetAngleRHBeta    },
+  { "RH_angle_gamma",    cliSetAngleRHGamma   }
 };
 
 const cliCommand cliCommandsRun[CLI_MENU_COMMANDS_RUN] = {
-  { "help",         cliRunHelp   },
-  { "I2Cscan",      runI2CScan   },
-  { "calibrateIMU", calibrateIMU },
-  { "WiFiinfo",     WiFiInfo     }
+  { "help",         cliRunHelp        },
+  { "I2Cscan",      runI2CScan        },
+  { "calibrateIMU", calibrateIMU      },
+  { "WiFiinfo",     WiFiInfo          },
+  { "sbscr",        subscriptionState }
 };
 
 void initCLI() {
@@ -55,9 +83,7 @@ void initCLI() {
 void cliInitHelp()
 {
   cliSerial->println();
-  cliSerial->println("-------------------------------------------------------");
-  cliSerial->println(" CLI: type `get|set|run help` to see available methods ");
-  cliSerial->println("-------------------------------------------------------");
+  cliSerial->println(" CLI: type `get|set|run|sbs help` to see available methods.");
   cliSerial->println();
 
 }
@@ -99,8 +125,10 @@ void cliRunCommand()
     cliRunCommandSet();
   } else if (strcmp(cliValues[0], "run") == 0) {
     cliRunCommandRun();
+  } else if (strcmp(cliValues[0], "sbs") == 0) {
+    cliRunCommandSubscription();
   } else {
-    cliUnknownCommand();
+    //cliUnknownCommand();
   }
 
   cliClearError();
@@ -127,11 +155,25 @@ void cliRunCommandGet() {
   cliHideReturn = false;
 }
 
+void cliRunCommandSubscription() {
+  cliSerial->print("SBS ");
+  cliSerial->println(cliValues[1]);
+  cliSerial->println(cliValues[2]);
+  cliSerial->println(cliValues[3]);
+  for (int i = 1; i < CLI_MENU_COMMANDS_GET; i++) { // ignore `help`
+    if (strcmp(cliValues[1], cliCommandsGet[i].commandName) == 0) {
+      subscribe(i, atoi(cliValues[2]) == 1, atoi(cliValues[3]) == 1);
+    }
+  }
+  cliHideReturn = false;
+}
+
+
 void cliRunCommandSet() {
   cliSerial->print("SET ");
   cliSerial->print(cliValues[1]);
   cliSerial->print(" ");
-  cliSerial->println(atof(cliValues[2]));
+  cliSerial->println(atof(cliValues[2]), CLI_DP);
   for (int i = 0; i < CLI_MENU_COMMANDS_SET; i++) {
     if (strcmp(cliValues[1], cliCommandsSet[i].commandName) == 0) {
       double r = cliCommandsSet[i].func(atof(cliValues[2]));
@@ -140,6 +182,7 @@ void cliRunCommandSet() {
       }
     }
   }
+  cliHideReturn = false;
 }
 
 void cliRunCommandRun() {
@@ -150,13 +193,15 @@ void cliRunCommandRun() {
       cliCommandsRun[i].func(atof(cliValues[2]));
     }
   }
+  cliHideReturn = false;
 }
 
 void cliDisplayHelp(cliCommand *_commands, int num)
 {
   cliHideReturn = true;
   for (int i = 1; i < num; i++) { // first command is `help`, we don't need to print it
-    cliSerial->print(" - ");
+    cliSerial->print(i);
+    cliSerial->print(CLI_DELIMITER);
     cliSerial->println(_commands[i].commandName);
   }
   

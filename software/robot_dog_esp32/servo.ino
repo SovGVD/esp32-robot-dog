@@ -17,39 +17,6 @@ void initServo()
   Serial.println();
 }
 
-
-void servoTest(int id) {
-  if (testAngleWay) {
-    testAngle = testAngle + testAngleInc;
-  } else {
-    testAngle = testAngle - testAngleInc;
-  }
-  if (testAngle > 110) {
-    testAngle = 110;
-    testAngleWay = !testAngleWay;
-  }
-  if (testAngle < 70) {
-    testAngle = 70;
-    testAngleWay = !testAngleWay;
-  }
-  
-//  display.print("Angle: ");
-//  display.println(testAngle, 4);
-//
-//  display.print("Pulse: ");
-//  display.println(angleToPulse(testAngle), 4);
-//
-//  display.print("Freq:  ");
-//  display.println(SERVO_FREQ);
-
-  for (int i = 0; i < LEG_NUM; i++) {
-    legs[i].angle.alpha = testAngle;
-    legs[i].angle.beta  = testAngle;
-    legs[i].angle.gamma = testAngle;
-  }
-  
-}
-
 void setServoToMiddle(int id)
 {
   for (int i = 0; i < LEG_NUM; i++) {
@@ -65,4 +32,40 @@ void servoSet()
   for (int i = 0; i < LEG_NUM; i++) {
     setLegPWM(legs[i]);
   }
+}
+
+bool setAngleDeg(leg &_leg, int angleId, double deg)
+{
+  // TODO limits?
+  double rad = degToRad(deg);
+  switch (angleId) {
+    case ALPHA:
+      _leg.angle.alpha = rad;
+      break;
+    case BETA:
+      _leg.angle.beta  = rad;
+      break;
+    case GAMMA:
+      _leg.angle.gamma = rad;
+      break;
+  }
+
+  return true;
+}
+
+double getAngleDeg(leg &_leg, int angleId)
+{
+  switch (angleId) {
+    case ALPHA:
+      return radToDeg(_leg.angle.alpha);
+      break;
+    case BETA:
+      return radToDeg(_leg.angle.beta);
+      break;
+    case GAMMA:
+      return radToDeg(_leg.angle.gamma);
+      break;
+  }
+
+  return 0.0;
 }

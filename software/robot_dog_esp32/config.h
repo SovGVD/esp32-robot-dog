@@ -55,7 +55,7 @@
 #define LEG_POINT_X    118.0
 #define LEG_POINT_Y_F  143.0
 #define LEG_POINT_Y_H   95.0
-#define LEG_POINT_Z    249.304
+#define LEG_POINT_Z    248.046
 
 #define LEG_TRIM_INC   0.002   // radian
 #define LEG_TRIM_LIMIT  0.24   // See settingsUint8ToDouble()

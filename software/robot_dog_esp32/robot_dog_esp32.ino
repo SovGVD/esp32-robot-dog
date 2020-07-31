@@ -15,6 +15,7 @@
 #include "ESPAsyncWebServer.h"
 #include "web/index.html.gz.h"
 #include "cli.h"
+#include "subscription.h"
 
 #include <Wire.h>
 
@@ -43,7 +44,7 @@ unsigned long currentTime;
 unsigned long previousTime;
 unsigned long loopTime;
 
-bool disableHAL = false;
+bool HALEnabled = true;
 
 // Gait
 uint16_t ticksPerGaitItem    = 0;
@@ -84,9 +85,10 @@ leg legs[LEG_NUM] = {
     {LEG_ANGLE_ALPHA_MIN, LEG_ANGLE_BETA_MIN, LEG_ANGLE_GAMMA_MIN},
     {LEG_ANGLE_ALPHA_MAX, LEG_ANGLE_BETA_MAX, LEG_ANGLE_GAMMA_MAX},
     {
-      {  0,  1,   2},  // 3 servo pins
-      {  0,  0,   0},  // trim
-      {  4,  2, 1.5}   // gear ratio, first and last one is 16 groves on servo and 24 groves on leg
+      {M_PI_2, M_PI_4, M_PI_2},  // hardware middle
+      {  0,  1,   2},            // 3 servo pins
+      {  0,  0,   0},            // servo middle trim
+      {  4,  2, 1.5}             // gear ratio, first and last one is 16 groves on servo and 24 groves on leg
     },
     {   -LEG_POINT_X,  LEG_POINT_Y_F,    -LEG_POINT_Z},
     {LEG_ANGLE_ALPHA, LEG_ANGLE_BETA, LEG_ANGLE_GAMMA},
@@ -102,6 +104,7 @@ leg legs[LEG_NUM] = {
     {LEG_ANGLE_ALPHA_MIN, LEG_ANGLE_BETA_MIN, LEG_ANGLE_GAMMA_MIN},
     {LEG_ANGLE_ALPHA_MAX, LEG_ANGLE_BETA_MAX, LEG_ANGLE_GAMMA_MAX},
     {
+      {M_PI_2, M_PI_4, M_PI_2},
       {  4,  5,   6},
       {  0,  0,   0},
       {  4,  2, 1.5}
@@ -120,6 +123,7 @@ leg legs[LEG_NUM] = {
     {LEG_ANGLE_ALPHA_MIN, LEG_ANGLE_BETA_MIN, LEG_ANGLE_GAMMA_MIN},
     {LEG_ANGLE_ALPHA_MAX, LEG_ANGLE_BETA_MAX, LEG_ANGLE_GAMMA_MAX},
     {
+      {M_PI_2, M_PI_4, M_PI_2},
       {  8,  9,  10},
       {  0,  0,   0},
       {  4,  2, 1.5}
@@ -138,6 +142,7 @@ leg legs[LEG_NUM] = {
     {LEG_ANGLE_ALPHA_MIN, LEG_ANGLE_BETA_MIN, LEG_ANGLE_GAMMA_MIN},
     {LEG_ANGLE_ALPHA_MAX, LEG_ANGLE_BETA_MAX, LEG_ANGLE_GAMMA_MAX},
     {
+      {M_PI_2, M_PI_4, M_PI_2},
       { 12, 13,  14},
       {  0,  0,   0},
       {  4,  2, 1.5}
@@ -184,6 +189,9 @@ AsyncWebSocket ws("/ws");
 // CLI
 Stream *cliSerial;
 
+// Subscriptions
+bool subscriptionEnabled = false;
+bool subscriptionBinary = false;
 
 void setup()
 {
@@ -198,7 +206,6 @@ void setup()
   initGait();
   initWiFi();
   initWebServer();
-
   
   xTaskCreatePinnedToCore(
     servicesLoop,   /* Task function. */
@@ -244,6 +251,7 @@ void servicesSetup() {
   WireServices.begin(SLOW_SDA, SLOW_SCL);
   cliSerial = &Serial;
   initCLI();
+  initSubscription();
 }
 
 void servicesLoop(void * pvParameters) {
@@ -252,7 +260,9 @@ void servicesLoop(void * pvParameters) {
   for (;;) {
     runSLOWCommand();
     updateCLI();
-    delay(100);
+    doFASTSubscription();
+    doSLOWSubscription();
+    delay(100); // TODO use timer to implement do-FAST/SLOW-Subscription
   }
 }
 

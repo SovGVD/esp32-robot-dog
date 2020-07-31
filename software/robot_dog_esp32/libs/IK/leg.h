@@ -54,6 +54,7 @@ typedef struct {
 
 // Leg HAL values
 typedef struct {
+	legangle mid;    // Hardware middle
 	legpin   pin;
 	legangle trim;
 	leggear  ratio;

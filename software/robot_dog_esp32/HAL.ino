@@ -11,8 +11,6 @@ void initLegs() {
 }
 
 void updateHAL() {
-  if (disableHAL) return;
-
   updateLegs();
 }
 
@@ -30,6 +28,8 @@ void readLegsSensors() {
 }
 
 void updateLegs() {
+  if (!isHALEnabled()) return;
+
   readLegsSensors();
   // TODO check `isSolved`
   #ifdef DEBUG_HAL_LEG
@@ -80,19 +80,27 @@ uint16_t angleToPulse(double angleRad) {
 
 void setLegPWM(leg &_leg)
 {
-  
-  // TODO limits and angle normalize
-  pwm.setPWM(_leg.hal.pin.alpha,  0,  angleToPulse(getHALAngle(_leg.angle.alpha, _leg.hal.trim.alpha, _leg.hal.ratio.alpha, _leg.inverse.alpha)));
-  pwm.setPWM(_leg.hal.pin.beta,   0,  angleToPulse(getHALAngle(_leg.angle.beta,  _leg.hal.trim.beta,  _leg.hal.ratio.beta,  _leg.inverse.beta)));
-  pwm.setPWM(_leg.hal.pin.gamma,  0,  angleToPulse(getHALAngle(_leg.angle.gamma, _leg.hal.trim.gamma, _leg.hal.ratio.gamma, _leg.inverse.gamma)));
+  pwm.setPWM(_leg.hal.pin.alpha,  0,  limitServoAngle(angleToPulse(getHALAngle(_leg.angle.alpha, _leg.hal.mid.alpha, _leg.hal.trim.alpha, _leg.hal.ratio.alpha, _leg.inverse.alpha))));
+  pwm.setPWM(_leg.hal.pin.beta,   0,  limitServoAngle(angleToPulse(getHALAngle(_leg.angle.beta,  _leg.hal.mid.beta,  _leg.hal.trim.beta,  _leg.hal.ratio.beta,  _leg.inverse.beta ))));
+  pwm.setPWM(_leg.hal.pin.gamma,  0,  limitServoAngle(angleToPulse(getHALAngle(_leg.angle.gamma, _leg.hal.mid.gamma, _leg.hal.trim.gamma, _leg.hal.ratio.gamma, _leg.inverse.gamma))));
 }
 
-double getHALAngle(double angle, double trimAngle, double gearRatio, bool inverse) {
-  angle = angle + trimAngle;
-  if (gearRatio != 1) {
-    angle = (angle - M_PI_2) * gearRatio + M_PI_2;  // map around middle of servo (90 deg, PI/2)
-  }
+double limitServoAngle(double angle)
+{
+  // TODO this is not right solution, we should restart calc to solve the angle instead of just limit if something wrong
+  //      also this is nothing about real mechanical limits, so need TODO
+  
+  // default servo can handle angles from 0 to 180 (PI) degrees only
+  if (angle < 0) angle = 0;
+  if (angle > PI) angle = PI;
+
+  return angle;
+}
+
+double getHALAngle(double angle, double mid, double trimAngle, double gearRatio, bool inverse) {
+  angle = (angle - mid) * gearRatio + M_PI_2;
   if (inverse) angle = M_PI - angle;
+  angle = angle + trimAngle;
   return angle;
 }
 
@@ -113,7 +121,8 @@ double getHALTrim (leg &_leg, int angleId)
   return 0;
 }
 
-bool setHALTrim (leg &_leg, int angleId, double deg) {
+bool setHALTrim (leg &_leg, int angleId, double deg)
+{
   double rad = degToRad(deg);
   if (rad >= LEG_TRIM_LIMIT || rad <= -LEG_TRIM_LIMIT) {
     return false;
@@ -135,4 +144,10 @@ bool setHALTrim (leg &_leg, int angleId, double deg) {
   _leg.hal.trim = settingsLoadTrimLeg(_leg);
 
   return true;
+}
+
+bool isHALEnabled()
+{
+  // This not correct, we are not enbale/disable HAL, but just disable servo position calculations
+  return HALEnabled;
 }

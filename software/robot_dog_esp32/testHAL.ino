@@ -1,11 +1,6 @@
 double displayHALMovement = 1;  // mm
 double displayHALRotation = M_PI/180;
 
-void displayDisableHAL(int toggle) {
-  disableHAL = toggle == 1?true:false;
-}
-
-
 // tests
 double HALTEST1_dx    = 0;
 double HALTEST1_dy    = 0;
@@ -14,7 +9,7 @@ double HALTEST1_d     = 1;
 int HALTEST1_stage = 0;
 double HALTEST1_delta = 49.9; // +-50 mm (square 100x100)
 
-void displayHALTest(int test) {
+void testHAL(int test) {
   switch (HALTEST1_stage) {
     case 0:
       HALTEST1_dy = HALTEST1_dy + HALTEST1_d;
@@ -34,28 +29,32 @@ void displayHALTest(int test) {
       break;
   }
 
+  testHAL_LEGLF(legs[LEGLF]);
+  //testHAL_LEGRF(legs[LEGRF]);
+  //testHAL_LEGLH(legs[LEGLH]);
+  //testHAL_LEGRH(legs[LEGRH]);
 }
 
-void displayHALTest1_LEGLF(leg &_leg) {
+void testHAL_LEGLF(leg &_leg) {
   _leg.foot.x = -LEG_POINT_X   + HALTEST1_dx;
   _leg.foot.y =  LEG_POINT_Y_F + HALTEST1_dy;
   _leg.foot.z = -LEG_POINT_Z   + HALTEST1_dz;
 }
 
-void displayHALTest1_LEGRF(leg &_leg) {
+void testHAL_LEGRF(leg &_leg) {
   _leg.foot.x =  LEG_POINT_X   + HALTEST1_dx;
   _leg.foot.y =  LEG_POINT_Y_F + HALTEST1_dy;
   _leg.foot.z = -LEG_POINT_Z   + HALTEST1_dz;
 }
 
 
-void displayHALTest1_LEGLH(leg &_leg) {
+void testHAL_LEGLH(leg &_leg) {
   _leg.foot.x = -LEG_POINT_X   + HALTEST1_dx;
   _leg.foot.y = -LEG_POINT_Y_H + HALTEST1_dy;
   _leg.foot.z = -LEG_POINT_Z   + HALTEST1_dz;
 }
 
-void displayHALTest1_LEGRH(leg &_leg) {
+void testHAL_LEGRH(leg &_leg) {
   _leg.foot.x =  LEG_POINT_X   + HALTEST1_dx;
   _leg.foot.y = -LEG_POINT_Y_H + HALTEST1_dy;
   _leg.foot.z = -LEG_POINT_Z   + HALTEST1_dz;
