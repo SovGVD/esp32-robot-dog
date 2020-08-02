@@ -92,7 +92,7 @@ leg legs[LEG_NUM] = {
     },
     {   -LEG_POINT_X,  LEG_POINT_Y_F,    -LEG_POINT_Z},
     {LEG_ANGLE_ALPHA, LEG_ANGLE_BETA, LEG_ANGLE_GAMMA},
-    {true, true, false, false, false, true},
+    {true, true, false, false, false, false},
     {true, 34, 2000}
   },
   // RIGHT FRONT
@@ -111,7 +111,7 @@ leg legs[LEG_NUM] = {
     },
     {    LEG_POINT_X,  LEG_POINT_Y_F,    -LEG_POINT_Z},
     {LEG_ANGLE_ALPHA, LEG_ANGLE_BETA, LEG_ANGLE_GAMMA},
-    {false, true, false, true, true, false},
+    {false, true, false, true, true, true},
     {true, 35, 2000}
   },
   // LEFT HIND
@@ -130,7 +130,7 @@ leg legs[LEG_NUM] = {
     },
     {   -LEG_POINT_X, -LEG_POINT_Y_H,    -LEG_POINT_Z},
     {LEG_ANGLE_ALPHA, LEG_ANGLE_BETA, LEG_ANGLE_GAMMA},
-    {true, true, false, true, false, true},
+    {true, true, false, true, false, false},
     {true, 39, 2000}
   },
   // RIGHT HIND
@@ -149,7 +149,7 @@ leg legs[LEG_NUM] = {
     },
     {    LEG_POINT_X, -LEG_POINT_Y_H,    -LEG_POINT_Z},
     {LEG_ANGLE_ALPHA, LEG_ANGLE_BETA, LEG_ANGLE_GAMMA},
-    {false, true, false, false, true, false},
+    {false, true, false, false, true, true},
     {true, 36, 2000}
   }
 };
